@@ -85,9 +85,10 @@ def train(config):
 
             # Initialize the model that we are going to use
             if config.model_type == "RNN":
-                model = VanillaRNN(config.input_length, config.input_dim, config.num_hidden, config.num_classes)
+                model = VanillaRNN(config.input_length, config.input_dim, config.num_hidden, config.num_classes, device)
             elif config.model_type == "LSTM":
-                model = LSTM(config.input_length, config.input_dim, config.num_hidden, config.num_classes)
+                model = LSTM(config.input_length, config.input_dim, config.num_hidden, config.num_classes, device)
+            model.to(device)
 
             # Setup the loss and optimizer
             criterion = torch.nn.CrossEntropyLoss()
@@ -101,6 +102,9 @@ def train(config):
                 # Add more code here ...
                 if config.input_dim != 1:
                     batch_inputs = one_hot(batch_inputs, config.input_dim)
+
+                batch_inputs = batch_inputs.to(device)
+                batch_targets = batch_targets.to(device)
 
                 p = model.forward(batch_inputs)
 

@@ -10,6 +10,7 @@
       <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/assignment_2.pdf" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part1/create_graphs.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/dataset.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/figures/Figure_1.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/grads_over_time.py" afterDir="false" />
@@ -37,6 +38,13 @@
   </component>
   <component name="FavoritesManager">
     <favorites_list name="Assignment 2" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
