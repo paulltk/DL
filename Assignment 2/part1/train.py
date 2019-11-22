@@ -26,9 +26,9 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
-from part1.dataset import PalindromeDataset
-from part1.vanilla_rnn import VanillaRNN
-from part1.lstm import LSTM
+from dataset import PalindromeDataset
+from vanilla_rnn import VanillaRNN
+from lstm import LSTM
 
 # You may want to look into tensorboard for logging
 # from torch.utils.tensorboard import SummaryWriter
@@ -58,9 +58,11 @@ def train(config):
         accuracy /= predictions.shape[0]
         return accuracy
 
+
     all_accuracies = []
     all_losses = []
     all_train_steps = []
+
 
     for T in T_options:
 
