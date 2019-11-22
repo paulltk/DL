@@ -100,8 +100,8 @@ def train(config):
                 t1 = time.time()
 
                 # Add more code here ...
-                if config.input_dim != 1:
-                    batch_inputs = one_hot(batch_inputs, config.input_dim)
+                # if config.input_dim != 1:
+                #     batch_inputs = one_hot(batch_inputs, config.input_dim)
 
                 batch_inputs = batch_inputs.to(device)
                 batch_targets = batch_targets.to(device)

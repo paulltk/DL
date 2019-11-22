@@ -58,25 +58,25 @@ class LSTM(nn.Module):
 
     def forward(self, x):
 
-        self.all_h = []
+        # self.all_h = []
         h = self.h
         c = self.c
 
         for i in range(self.sec_length):
-            if self.input_dim == 1:
-                numbers = x[:, i].view(x.size(0), 1)
-            else:
-                numbers = x[:, i, :]
+            # if self.input_dim == 1:
+            #     numbers = x[:, i].view(x.size(0), 1)
+            # else:
+            numbers = x[:, i, :]
 
-            g = (numbers @ self.Wgx + h @ self.Wgh + self.Bg).tanh().to(self.device)
-            i = (numbers @ self.Wix + h @ self.Wih + self.Bi).sigmoid().to(self.device)
-            f = (numbers @ self.Wfx + h @ self.Wfh + self.Bf).sigmoid().to(self.device)
-            o = (numbers @ self.Wox + h @ self.Woh + self.Bo).sigmoid().to(self.device)
+            g = (numbers @ self.Wgx + h @ self.Wgh + self.Bg).tanh()
+            i = (numbers @ self.Wix + h @ self.Wih + self.Bi).sigmoid()
+            f = (numbers @ self.Wfx + h @ self.Wfh + self.Bf).sigmoid()
+            o = (numbers @ self.Wox + h @ self.Woh + self.Bo).sigmoid()
 
             c = g * i + c * f
-
             h = (c * o).tanh()
-            self.all_h.append(h.requires_grad_(True))
+
+            # self.all_h.append(h.requires_grad_(True))
 
             p = h @ self.Wph + self.Bp
 
