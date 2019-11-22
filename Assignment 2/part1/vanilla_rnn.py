@@ -29,8 +29,9 @@ class VanillaRNN(nn.Module):
         super(VanillaRNN, self).__init__()
 
         self.sec_length = seq_length
-        self.device = device
         self.input_dim = input_dim
+        self.device = device
+
         self.Whx = nn.Parameter(nn.init.xavier_uniform_(torch.empty((input_dim, num_hidden))).to(device))
         self.Whh = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_hidden))).to(device))
         self.Wph = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_classes))).to(device))
@@ -43,16 +44,13 @@ class VanillaRNN(nn.Module):
     def forward(self, x):
 
         h = self.h.to(device)
-        self.all_h = []
+        # self.all_h = []
 
         for i in range(self.sec_length):
-            if self.input_dim == 1:
-                numbers = x[:, i].view(x.size(0), 1)
-            else:
-                numbers = x[:, i, :]
+            numbers = x[:, i].view(x.size(0), 1)
 
             h = (numbers @ self.Whx + h @ self.Whh + self.Bh).tanh().to(self.device)
-            self.all_h.append(h.requires_grad_(True))
+            # self.all_h.append(h.requires_grad_(True))
 
             p = (h @ self.Wph + self.Bp).to(self.device)
 

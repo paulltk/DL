@@ -46,10 +46,6 @@ def train(config):
     # Initialize the device which to run the model on
     device = torch.device(config.device)
 
-    def one_hot(x, input_dim):
-        one_hot_vec = (torch.arange(x.max() + 1) == x[..., None]).float()
-        return one_hot_vec
-
     def acc(predictions, targets):
         accuracy = 0
         for prediction, target in zip(predictions, targets):
@@ -98,10 +94,6 @@ def train(config):
 
                 # Only for time measurement of step through network
                 t1 = time.time()
-
-                # Add more code here ...
-                # if config.input_dim != 1:
-                #     batch_inputs = one_hot(batch_inputs, config.input_dim)
 
                 batch_inputs = batch_inputs.to(device)
                 batch_targets = batch_targets.to(device)
