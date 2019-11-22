@@ -30,27 +30,28 @@ class LSTM(nn.Module):
 
         self.sec_length = seq_length
         self.input_dim = input_dim
+        self.device = device
 
-        self.Wgx = nn.Parameter(nn.init.xavier_uniform_(torch.empty((input_dim, num_hidden))))
-        self.Wgh = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_hidden))))
+        self.Wgx = nn.Parameter(nn.init.xavier_uniform_(torch.empty((input_dim, num_hidden))).to(self.device))
+        self.Wgh = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_hidden))).to(self.device))
 
-        self.Wix = nn.Parameter(nn.init.xavier_uniform_(torch.empty((input_dim, num_hidden))))
-        self.Wih = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_hidden))))
+        self.Wix = nn.Parameter(nn.init.xavier_uniform_(torch.empty((input_dim, num_hidden))).to(self.device))
+        self.Wih = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_hidden))).to(self.device))
 
-        self.Wfx = nn.Parameter(nn.init.xavier_uniform_(torch.empty((input_dim, num_hidden))))
-        self.Wfh = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_hidden))))
+        self.Wfx = nn.Parameter(nn.init.xavier_uniform_(torch.empty((input_dim, num_hidden))).to(self.device))
+        self.Wfh = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_hidden))).to(self.device))
 
-        self.Wox = nn.Parameter(nn.init.xavier_uniform_(torch.empty((input_dim, num_hidden))))
-        self.Woh = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_hidden))))
+        self.Wox = nn.Parameter(nn.init.xavier_uniform_(torch.empty((input_dim, num_hidden))).to(self.device))
+        self.Woh = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_hidden))).to(self.device))
 
-        self.Bg = nn.Parameter(torch.zeros(num_hidden))
-        self.Bi = nn.Parameter(torch.zeros(num_hidden))
-        self.Bf = nn.Parameter(torch.zeros(num_hidden))
-        self.Bo = nn.Parameter(torch.zeros(num_hidden))
+        self.Bg = nn.Parameter(torch.zeros(num_hidden).to(self.device))
+        self.Bi = nn.Parameter(torch.zeros(num_hidden).to(self.device))
+        self.Bf = nn.Parameter(torch.zeros(num_hidden).to(self.device))
+        self.Bo = nn.Parameter(torch.zeros(num_hidden).to(self.device))
 
-        self.Wph = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_classes))))
+        self.Wph = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_classes))).to(self.device))
 
-        self.Bp = nn.Parameter(torch.zeros(num_classes))
+        self.Bp = nn.Parameter(torch.zeros(num_classes).to(self.device))
 
         self.h = torch.zeros(num_hidden)
         self.c = torch.zeros(num_hidden)
@@ -67,10 +68,10 @@ class LSTM(nn.Module):
             else:
                 numbers = x[:, i, :]
 
-            g = (numbers @ self.Wgx + h @ self.Wgh + self.Bg).tanh()
-            i = (numbers @ self.Wix + h @ self.Wih + self.Bi).sigmoid()
-            f = (numbers @ self.Wfx + h @ self.Wfh + self.Bf).sigmoid()
-            o = (numbers @ self.Wox + h @ self.Woh + self.Bo).sigmoid()
+            g = (numbers @ self.Wgx + h @ self.Wgh + self.Bg).tanh().to(self.device)
+            i = (numbers @ self.Wix + h @ self.Wih + self.Bi).sigmoid().to(self.device)
+            f = (numbers @ self.Wfx + h @ self.Wfh + self.Bf).sigmoid().to(self.device)
+            o = (numbers @ self.Wox + h @ self.Woh + self.Bo).sigmoid().to(self.device)
 
             c = g * i + c * f
 
