@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5abf0023-5c3c-47ff-bd50-c7a28760942e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Assignment 2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Figure_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Figure_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assignment_2.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part1/T4_lr0.001_iter1000_optim_RMS.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part1/T4_lr0.001_iter20_optim_RMS.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part1/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part1/dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part1/figures/Figure_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part1/grads_over_time.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part1/jaja.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part1/lstm.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part1/lstm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part1/rnn.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part1/train.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part1/vanilla_rnn.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part2/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part2/assets/book_EN_democracy_in_the_US.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part2/assets/book_EN_grimms_fairy_tails.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part2/assets/book_NL_darwin_reis_om_de_wereld.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part2/assets/book_NL_tolstoy_anna_karenina.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part2/assets/book_TeX_calculus_made_easy.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part2/dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part2/model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/part2/train.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Assignment 2" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="ProjectId" id="1TsP86LBLkF5w8UruBX3vC54cx1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.train">
+    <configuration name="grads_over_time" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Assignment 2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/part1" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/part1/grads_over_time.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Assignment 2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/part1" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/part1/train.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.train" />
+        <item itemvalue="Python.grads_over_time" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5abf0023-5c3c-47ff-bd50-c7a28760942e" name="Default Changelist" comment="" />
+      <created>1574245667161</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1574245667161</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
