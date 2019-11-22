@@ -7,12 +7,8 @@
       <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Figure_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Figure_2.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/assignment_2.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/part1/T4_lr0.001_iter1000_optim_RMS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/part1/T4_lr0.001_iter20_optim_RMS.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/__init__.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/dataset.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/figures/Figure_1.png" afterDir="false" />
@@ -32,7 +28,6 @@
       <change afterPath="$PROJECT_DIR$/part2/dataset.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part2/model.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part2/train.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

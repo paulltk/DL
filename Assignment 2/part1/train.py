@@ -22,7 +22,6 @@ import argparse
 import time
 from datetime import datetime
 import numpy as np
-from matplotlib import pyplot as plt
 import seaborn as sns
 
 
@@ -41,7 +40,7 @@ from part1.lstm import LSTM
 def train(config):
 
     #set variables
-    T_options = list(range(5, 36, 2))
+    T_options = list(range(5, 7))
     config.model_type = "LSTM"
 
     assert config.model_type in ('RNN', 'LSTM')
@@ -154,43 +153,51 @@ def train(config):
     print(all_losses)
     print(all_train_steps)
 
-    plt.figure(figsize=(19, 6))
+    with open("file.txt", "w") as output:
+        output.write("accuracies \n")
+        output.write(str(all_accuracies) + "\n")
+        output.write("losses \n")
+        output.write(str(all_losses) + "\n")
+        output.write("train steps \n")
+        output.write(str(all_train_steps) + "\n")
 
-    mean_acc = list(np.array(all_accuracies).mean(axis=1))
-    maxstd_acc = list(np.array(all_accuracies).mean(axis=1) + np.array(all_accuracies).std(axis=1))
-    minstd_acc = list(np.array(all_accuracies).mean(axis=1) - np.array(all_accuracies).std(axis=1))
+    #plt.figure(figsize=(19, 6))
 
-    mean_loss = list(np.array(all_losses).mean(axis=1))
-    maxstd_loss = list(np.array(all_losses).mean(axis=1) + np.array(all_losses).std(axis=1))
-    minstd_loss = list(np.array(all_losses).mean(axis=1) - np.array(all_losses).std(axis=1))
+    # mean_acc = list(np.array(all_accuracies).mean(axis=1))
+    # maxstd_acc = list(np.array(all_accuracies).mean(axis=1) + np.array(all_accuracies).std(axis=1))
+    # minstd_acc = list(np.array(all_accuracies).mean(axis=1) - np.array(all_accuracies).std(axis=1))
+    #
+    # mean_loss = list(np.array(all_losses).mean(axis=1))
+    # maxstd_loss = list(np.array(all_losses).mean(axis=1) + np.array(all_losses).std(axis=1))
+    # minstd_loss = list(np.array(all_losses).mean(axis=1) - np.array(all_losses).std(axis=1))
 
     mean_train_steps = list(np.array(all_train_steps).mean(axis=1))
 
-    plt.subplot(1, 3, 1)
-    plt.plot(T_options, all_accuracies, "o", color="orange")
-    plt.plot(T_options, mean_acc, label="accuracy mean", color="orange")
-    plt.fill_between(T_options, maxstd_acc, minstd_acc, alpha = 0.2, label="accuracy std", color="orange")
-    plt.xlabel("input_length")
-    plt.ylabel("accuracy")
-    plt.legend()
-
-    plt.subplot(1, 3, 2)
-    plt.plot(T_options, all_losses, "o", color="orange")
-    plt.plot(T_options, mean_loss, label="loss mean", color="orange")
-    plt.fill_between(T_options, maxstd_loss, minstd_loss, alpha = 0.2, label="loss std", color="orange")
-    plt.xlabel("input_length")
-    plt.ylabel("loss")
-    plt.legend()
-
-    plt.subplot(1, 3, 3)
-    plt.plot(T_options, mean_train_steps, label="average train steps", color="orange")
-    plt.xlabel("input_length")
-    plt.ylabel("train steps")
-    plt.legend()
-
-    plt.savefig("ltsm2.png")
-
-    plt.show()
+    # plt.subplot(1, 3, 1)
+    # plt.plot(T_options, all_accuracies, "o", color="orange")
+    # plt.plot(T_options, mean_acc, label="accuracy mean", color="orange")
+    # plt.fill_between(T_options, maxstd_acc, minstd_acc, alpha = 0.2, label="accuracy std", color="orange")
+    # plt.xlabel("input_length")
+    # plt.ylabel("accuracy")
+    # plt.legend()
+    #
+    # plt.subplot(1, 3, 2)
+    # plt.plot(T_options, all_losses, "o", color="orange")
+    # plt.plot(T_options, mean_loss, label="loss mean", color="orange")
+    # plt.fill_between(T_options, maxstd_loss, minstd_loss, alpha = 0.2, label="loss std", color="orange")
+    # plt.xlabel("input_length")
+    # plt.ylabel("loss")
+    # plt.legend()
+    #
+    # plt.subplot(1, 3, 3)
+    # plt.plot(T_options, mean_train_steps, label="average train steps", color="orange")
+    # plt.xlabel("input_length")
+    # plt.ylabel("train steps")
+    # plt.legend()
+    #
+    # plt.savefig("ltsm2.png")
+    #
+    # plt.show()
 
 if __name__ == "__main__":
 
@@ -205,7 +212,7 @@ if __name__ == "__main__":
     parser.add_argument('--num_hidden', type=int, default=128, help='Number of hidden units in the model')
     parser.add_argument('--batch_size', type=int, default=128, help='Number of examples to process in a batch')
     parser.add_argument('--learning_rate', type=float, default=0.001, help='Learning rate')
-    parser.add_argument('--train_steps', type=int, default=2000, help='Number of training steps')
+    parser.add_argument('--train_steps', type=int, default=20, help='Number of training steps')
     parser.add_argument('--max_norm', type=float, default=10.0)
     parser.add_argument('--device', type=str, default="cuda:0", help="Training device 'cpu' or 'cuda:0'")
 
