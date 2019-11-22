@@ -40,7 +40,7 @@ from part1.lstm import LSTM
 def train(config):
 
     #set variables
-    T_options = list(range(5, 7))
+    T_options = list(range(5, 36, 2))
     config.model_type = "LSTM"
 
     assert config.model_type in ('RNN', 'LSTM')
@@ -75,7 +75,7 @@ def train(config):
 
         config.input_length = T
 
-        for i in range(2):
+        for i in range(6):
 
             print("Iteration", i, "with T:", T,)
 
@@ -212,7 +212,7 @@ if __name__ == "__main__":
     parser.add_argument('--num_hidden', type=int, default=128, help='Number of hidden units in the model')
     parser.add_argument('--batch_size', type=int, default=128, help='Number of examples to process in a batch')
     parser.add_argument('--learning_rate', type=float, default=0.001, help='Learning rate')
-    parser.add_argument('--train_steps', type=int, default=20, help='Number of training steps')
+    parser.add_argument('--train_steps', type=int, default=10000, help='Number of training steps')
     parser.add_argument('--max_norm', type=float, default=10.0)
     parser.add_argument('--device', type=str, default="cuda:0", help="Training device 'cpu' or 'cuda:0'")
 
