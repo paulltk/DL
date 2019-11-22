@@ -53,8 +53,8 @@ class LSTM(nn.Module):
 
         self.Bp = nn.Parameter(torch.zeros(num_classes).to(self.device))
 
-        self.h = torch.zeros(num_hidden)
-        self.c = torch.zeros(num_hidden)
+        self.h = torch.zeros(num_hidden).to(self.device)
+        self.c = torch.zeros(num_hidden).to(self.device)
 
     def forward(self, x):
 
