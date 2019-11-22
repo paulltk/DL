@@ -64,9 +64,9 @@ class LSTM(nn.Module):
 
         for i in range(self.sec_length):
             # if self.input_dim == 1:
-            #     numbers = x[:, i].view(x.size(0), 1)
+            numbers = x[:, i].view(x.size(0), 1)
             # else:
-            numbers = x[:, i, :]
+            #     numbers = x[:, i, :]
 
             g = (numbers @ self.Wgx + h @ self.Wgh + self.Bg).tanh()
             i = (numbers @ self.Wix + h @ self.Wih + self.Bi).sigmoid()
