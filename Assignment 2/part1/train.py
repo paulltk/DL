@@ -22,8 +22,6 @@ import argparse
 import time
 from datetime import datetime
 import numpy as np
-import seaborn as sns
-
 
 import torch
 from torch.utils.data import DataLoader
