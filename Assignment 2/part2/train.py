@@ -64,7 +64,9 @@ def train(config):
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
         
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
-#         batch_inputs = (torch.arange(batch_inputs.max()+1) == batch_inputs[...,None]).type(torch.LongTensor) #create one-hot
+        print("batch_inputs", batch_inputs)  
+        
+        batch_inputs = (torch.arange(batch_inputs.max()+1) == batch_inputs[...,None]).type(torch.LongTensor) #create one-hot
         
         # Only for time measurement of step through network
         t1 = time.time()
@@ -76,8 +78,8 @@ def train(config):
         batch_inputs = batch_inputs.to(device)
         batch_targets = batch_targets.to(device)
 
-        print(batch_inputs)  
-        print(batch_targets)  
+        print("batch_inputs", batch_inputs)  
+        print("batch_targets", batch_targets)  
 
         out = model.forward(batch_inputs)
 
