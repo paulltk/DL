@@ -37,20 +37,23 @@ def train(config):
 
     # Initialize the device which to run the model on
     device = torch.device(config.device)
+    config.txt_file = "book_EN_democracy_in_the_US.txt"
 
     # Initialize the model that we are going to use
 #     model = TextGenerationModel( ... )  # fixme
 
     # Initialize the dataset and data loader (note the +1)
-#     dataset = TextDataset( ... )  # fixme
-#     data_loader = DataLoader(dataset, config.batch_size, num_workers=1)
+    dataset = TextDataset(config.txt_file, config.seq_length)  # fixme
+    data_loader = DataLoader(dataset, config.batch_size, num_workers=1)
 
 #     # Setup the loss and optimizer
 #     criterion = None  # fixme
 #     optimizer = None  # fixme
 
-#     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
+    for step, (batch_inputs, batch_targets) in enumerate(data_loader):
+        print(batch_inputs)
 
+        break
 #         # Only for time measurement of step through network
 #         t1 = time.time()
 
