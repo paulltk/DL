@@ -80,12 +80,12 @@ def train(config):
 
         out = model.forward(batch_inputs)
 
-        print("batch_inputs", batch_inputs.size())  
-        print("batch_targets", batch_targets.size())  
-        print("output size", out.size())
+        print("batch_inputs", batch_inputs.size(), batch_inputs.type())  
+        print("batch_targets", batch_targets.size(), batch_targets.type())  
+        print("output size", out.size(), out.type())
         
         loss = criterion(out.view(config.batch_size, dataset._vocab_size, 
-                                  config.seq_length).type(torch.LongTensor), batch_targets)
+                                  config.seq_length).float(), batch_targets)
 #         accuracy = acc(out, batch_targets)
 
         optimizer.zero_grad()
