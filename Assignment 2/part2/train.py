@@ -66,7 +66,7 @@ def train(config):
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
         torch.set_printoptions(threshold=5) 
      
-        batch_inputs = (torch.arange(dataset._vocab_size) == batch_inputs[...,None]).type(torch.LongTensor) #create one-hot
+        batch_inputs = (torch.arange(dataset._vocab_size) == batch_inputs[...,None]) #create one-hot
         
         # Only for time measurement of step through network
         t1 = time.time()
@@ -75,8 +75,8 @@ def train(config):
         # Add more code here ...
         #######################################################
 
-        batch_inputs = batch_inputs.type(torch.LongTensor).to(device)
-        batch_targets = batch_targets.type(torch.LongTensor).to(device)
+        batch_inputs = batch_inputs.float().to(device)
+        batch_targets = batch_targets.float().to(device)
 
         out = model.forward(batch_inputs)
 
