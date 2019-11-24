@@ -36,7 +36,8 @@ from model import TextGenerationModel
 def train(config):
 
     # Initialize the device which to run the model on
-    device = torch.device(config.device)
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    print(device)
     print("config:", config.txt_file)
     # Initialize the model that we are going to use
 #     model = TextGenerationModel( ... )  # fixme
