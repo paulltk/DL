@@ -35,69 +35,79 @@ from model import TextGenerationModel
 
 def train(config):
 
+    
+    def acc(predictions, targets):
+        accuracy = 0
+        for prediction, target in zip(predictions, targets):
+            if prediction.argmax() == target:
+                accuracy += 1
+        accuracy /= predictions.shape[0]
+        return accuracy
+
     # Initialize the device which to run the model on
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    print(device)
-    print("config:", config.txt_file)
-    # Initialize the model that we are going to use
-#     model = TextGenerationModel(config.batch_size, config.seq_length, vocabulary_size,
-#                  lstm_num_hidden=256, lstm_num_layers=2, device='cuda:0')  # fixme
 
+    print(device)
+    print("book:", config.txt_file)
+    
     # Initialize the dataset and data loader (note the +1)
     dataset = TextDataset(config.txt_file, config.seq_length)  # fixme
     data_loader = DataLoader(dataset, config.batch_size, num_workers=1)
 
-    test_input, test_target = next(iter(data_loader))
-    print(dataset._vocab_size)
+    # Initialize the model that we are going to use
+    model = TextGenerationModel(config.batch_size, config.seq_length, dataset._vocab_size,
+                 config.lstm_num_hidden, config.lstm_num_layers, device)
+
     
-#     # Setup the loss and optimizer
+    # Setup the loss and optimizer
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
         
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
-        batch_inputs = (torch.arange(batch_inputs.max()+1) == batch_inputs[...,None]).type(torch.LongTensor)
-        print(batch_inputs.size())
-        print(batch_targets)
-        print(batch_targets.size())
-#         for sen in batch_inputs:
-#             test = dataset.convert_to_string(sen)
-#             print(test)
+        batch_inputs = (torch.arange(batch_inputs.max()+1) == batch_inputs[...,None]).type(torch.LongTensor) #create one-hot
         
-
-        break
-#         # Only for time measurement of step through network
-#         t1 = time.time()
+        # Only for time measurement of step through network
+        t1 = time.time()
 
 #         #######################################################
 #         # Add more code here ...
 #         #######################################################
 
-#         loss = np.inf   # fixme
-#         accuracy = 0.0  # fixme
+        batch_inputs = batch_inputs.to(device)
+        batch_targets = batch_targets.to(device)
 
-#         # Just for time measurement
-#         t2 = time.time()
-#         examples_per_second = config.batch_size/float(t2-t1)
+        out = model.forward(batch_inputs)
 
-#         if step % config.print_every == 0:
+        loss = criterion(out, batch_targets)
+        accuracy = acc(out, batch_targets)
 
-#             print("[{}] Train Step {:04d}/{:04d}, Batch Size = {}, Examples/Sec = {:.2f}, "
-#                   "Accuracy = {:.2f}, Loss = {:.3f}".format(
-#                     datetime.now().strftime("%Y-%m-%d %H:%M"), step,
-#                     config.train_steps, config.batch_size, examples_per_second,
-#                     accuracy, loss
-#             ))
+        optimizer.zero_grad()
 
-#         if step == config.sample_every:
-#             # Generate some sentences by sampling from the model
-#             pass
+        loss.backward()
 
-#         if step == config.train_steps:
-#             # If you receive a PyTorch data-loader error, check this bug report:
-#             # https://github.com/pytorch/pytorch/pull/9655
-#             break
+        # Just for time measurement
+        t2 = time.time()
+        examples_per_second = config.batch_size/float(t2-t1)
 
-#     print('Done training.')
+        if step % config.print_every == 0:
+
+            print("[{}] Train Step {:04d}/{:04d}, Batch Size = {}, Examples/Sec = {:.2f}, "
+                  "Accuracy = {:.2f}, Loss = {:.3f}".format(
+                    datetime.now().strftime("%Y-%m-%d %H:%M"), step,
+                    config.train_steps, config.batch_size, examples_per_second,
+                    accuracy, loss
+            ))
+
+        if step == config.sample_every:
+            # Generate some sentences by sampling from the model
+            pass
+
+        if step == config.train_steps:
+            # If you receive a PyTorch data-loader error, check this bug report:
+            # https://github.com/pytorch/pytorch/pull/9655
+            break
+
+    print('Done training.')
 
 
  ################################################################################
