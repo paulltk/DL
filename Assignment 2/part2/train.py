@@ -43,7 +43,6 @@ def train(config):
     # Initialize the device which to run the model on
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    print(device)
     print("book:", config.txt_file)
     
     # Initialize the dataset and data loader (note the +1)
@@ -53,7 +52,6 @@ def train(config):
     # Initialize the model that we are going to use
     model = TextGenerationModel(config.batch_size, config.seq_length, dataset._vocab_size,
                  config.lstm_num_hidden, config.lstm_num_layers, device).to(device)
-
     
     # Setup the loss and optimizer
     criterion = torch.nn.CrossEntropyLoss()
@@ -85,7 +83,7 @@ def train(config):
 
         loss.backward()
         
-        torch.nn.utils.clip_grad_norm(model.parameters(), max_norm=config.max_norm)
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=config.max_norm)
         
         optimizer.step()
 
