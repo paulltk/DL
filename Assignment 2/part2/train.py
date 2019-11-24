@@ -76,7 +76,7 @@ def train(config):
         #######################################################
 
         batch_inputs = batch_inputs.float().to(device)
-        batch_targets = batch_targets.float().to(device)
+        batch_targets = batch_targets.to(device)
 
         out = model.forward(batch_inputs)
 
@@ -84,7 +84,7 @@ def train(config):
         print("batch_targets", batch_targets.size(), batch_targets.type())  
         print("output size", out.size(), out.type())
         
-        loss = criterion(out.view(config.batch_size, dataset._vocab_size, config.seq_length).float(), batch_targets)
+        loss = criterion(out.view(config.batch_size, dataset._vocab_size, config.seq_length), batch_targets)
 #         accuracy = acc(out, batch_targets)
 
         optimizer.zero_grad()
