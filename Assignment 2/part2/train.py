@@ -48,7 +48,7 @@ def train(config):
     data_loader = DataLoader(dataset, config.batch_size, num_workers=1)
 
     test_input, test_target = next(iter(data_loader))
-    print(data_loader._vocab_size)
+    print(dataset._vocab_size)
     
 #     # Setup the loss and optimizer
     criterion = torch.nn.CrossEntropyLoss()
