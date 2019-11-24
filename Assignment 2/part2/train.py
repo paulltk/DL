@@ -84,8 +84,8 @@ def train(config):
 #         print("output size", out.size(), out.type())
         
         loss = criterion(out.view(config.batch_size, dataset._vocab_size, config.seq_length), batch_targets)
-#         accuracy = acc(out, batch_targets)
-        accuracy = 1
+        accuracy = acc(out, batch_targets)
+#         accuracy = 1
 
         optimizer.zero_grad()
 
