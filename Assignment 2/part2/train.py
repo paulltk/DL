@@ -80,11 +80,14 @@ def train(config):
         
         loss = criterion(out.view(config.batch_size, dataset._vocab_size, config.seq_length), batch_targets)
         accuracy = acc(out, batch_targets)
-#         accuracy = 1
 
         optimizer.zero_grad()
 
         loss.backward()
+        
+        torch.nn.utils.clip_grad_norm(model.parameters(), max_norm=config.max_norm)
+        
+        optimizer.step()
 
         # Just for time measurement
         t2 = time.time()
