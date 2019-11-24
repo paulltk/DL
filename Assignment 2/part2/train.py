@@ -77,8 +77,8 @@ def train(config):
         # Add more code here ...
         #######################################################
 
-        batch_inputs = batch_inputs.to(device)
-        batch_targets = batch_targets.to(device)
+        batch_inputs = batch_inputs.float().to(device)
+        batch_targets = batch_targets.float().to(device)
 
         print("batch_inputs", batch_inputs.size())  
         print("batch_targets", batch_targets.size())  
