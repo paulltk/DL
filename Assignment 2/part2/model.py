@@ -42,5 +42,4 @@ class TextGenerationModel(nn.Module):
         
         print(output.size())
         print(cell[0].size())
-        print(cell[1].size())
-        print(cell[2].size())
+        print(cell[1])
