@@ -85,6 +85,8 @@ def train(config):
 
         out = model.forward(batch_inputs)
         
+        print(out.size())
+        
         break
 
         loss = criterion(out, batch_targets)
