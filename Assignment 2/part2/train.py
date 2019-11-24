@@ -52,6 +52,12 @@ def train(config):
 
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
         print(batch_inputs)
+        print(batch_inputs.size())
+        print(batch_targets)
+        print(batch_targets.size())
+        test = convert_to_string(batch_inputs)
+        print(test)
+        
 
         break
 #         # Only for time measurement of step through network
