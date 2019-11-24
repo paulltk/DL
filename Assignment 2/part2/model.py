@@ -33,7 +33,7 @@ class TextGenerationModel(nn.Module):
         self.lstm_num_layers = lstm_num_layers
         
         self.lstm = nn.LSTM(input_size=self.vocabulary_size, hidden_size = self.lstm_num_hidden, num_layers = self.lstm_num_layers)
-        self.linear = nn.Linear(self.lstm_num_layers, self.vocabulary_size)
+        self.linear = nn.Linear(self.lstm_num_hidden, self.vocabulary_size)
                 
     def forward(self, x):
         
