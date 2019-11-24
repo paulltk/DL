@@ -68,7 +68,7 @@ def train(config):
         
         print("batch_inputs", batch_inputs.size())  
         
-        batch_inputs = (torch.arange(batch_inputs.max()+1) == batch_inputs[...,None]).type(torch.LongTensor) #create one-hot
+        batch_inputs = (torch.arange(dataset._vocab_size) == batch_inputs[...,None]).type(torch.LongTensor) #create one-hot
         
         # Only for time measurement of step through network
         t1 = time.time()
