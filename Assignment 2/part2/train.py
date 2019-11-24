@@ -84,6 +84,8 @@ def train(config):
         print("batch_targets", batch_targets.size())  
 
         out = model.forward(batch_inputs)
+        
+        break
 
         loss = criterion(out, batch_targets)
         accuracy = acc(out, batch_targets)
