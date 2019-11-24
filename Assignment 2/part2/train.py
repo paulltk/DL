@@ -37,8 +37,8 @@ def train(config):
 
     
     def acc(predictions, targets):
-        accuracy = (predictions.argmax(dim=2) == targets).mean()
-        return accuracy.float()
+        accuracy = (predictions.argmax(dim=2) == targets).float().mean()
+        return accuracy
 
     # Initialize the device which to run the model on
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
