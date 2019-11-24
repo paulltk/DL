@@ -40,7 +40,7 @@ def train(config):
     print(device)
     print("config:", config.txt_file)
     # Initialize the model that we are going to use
-    model = TextGenerationModel(config.batch_size, config.seq_length, vocabulary_size,
+#     model = TextGenerationModel(config.batch_size, config.seq_length, vocabulary_size,
                  lstm_num_hidden=256, lstm_num_layers=2, device='cuda:0')  # fixme
 
     # Initialize the dataset and data loader (note the +1)
