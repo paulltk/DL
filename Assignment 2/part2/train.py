@@ -64,7 +64,7 @@ def train(config):
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
         
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
-        torch.set_printoptions(threshold=10) 
+        torch.set_printoptions(threshold=5) 
         
         print("batch_inputs", batch_inputs.size())  
         
