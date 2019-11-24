@@ -37,8 +37,9 @@ def train(config):
 
     # Initialize the device which to run the model on
     device = torch.device(config.device)
+    print("config:", config.txt_file)
     config.txt_file = "book_EN_democracy_in_the_US.txt"
-
+    print("config:", config.txt_file)
     # Initialize the model that we are going to use
 #     model = TextGenerationModel( ... )  # fixme
 
