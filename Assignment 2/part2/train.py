@@ -76,8 +76,8 @@ def train(config):
         batch_inputs = batch_inputs.to(device)
         batch_targets = batch_targets.to(device)
 
-        print(batch_inputs.type())  
-        print(batch_targets.type())  
+        print(batch_inputs.size())  
+        print(batch_targets.size())  
 
         out = model.forward(batch_inputs)
 
