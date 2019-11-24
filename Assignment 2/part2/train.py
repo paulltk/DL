@@ -64,6 +64,8 @@ def train(config):
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
         
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
+        torch.set_printoptions(threshold=5000) 
+        
         print("batch_inputs", batch_inputs[0])  
         
         batch_inputs = (torch.arange(batch_inputs.max()+1) == batch_inputs[...,None]).type(torch.LongTensor) #create one-hot
