@@ -51,9 +51,9 @@ def train(config):
 #     optimizer = None  # fixme
 
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
-        print(batch_inputs)
+        print(batch_inputs[0,0])
         print(batch_inputs.size())
-        batch_inputs = (torch.arange(batch_inputs.max()) == batch_inputs[...,None]-1)
+        batch_inputs = (torch.arange(batch_inputs.max()+1) == batch_inputs[...,None])
         print(batch_inputs)
         print(batch_inputs.size())
         #         print(batch_targets)
