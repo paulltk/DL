@@ -40,12 +40,16 @@ def train(config):
     print(device)
     print("config:", config.txt_file)
     # Initialize the model that we are going to use
-#     model = TextGenerationModel( ... )  # fixme
+    model = TextGenerationModel(config.batch_size, config.seq_length, vocabulary_size,
+                 lstm_num_hidden=256, lstm_num_layers=2, device='cuda:0')  # fixme
 
     # Initialize the dataset and data loader (note the +1)
     dataset = TextDataset(config.txt_file, config.seq_length)  # fixme
     data_loader = DataLoader(dataset, config.batch_size, num_workers=1)
 
+    test_input, test_target = next(iter(data_loader))
+    print(data_loader.vocab_size)
+    
 #     # Setup the loss and optimizer
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
