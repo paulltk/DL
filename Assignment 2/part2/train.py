@@ -69,12 +69,15 @@ def train(config):
         # Only for time measurement of step through network
         t1 = time.time()
 
-#         #######################################################
-#         # Add more code here ...
-#         #######################################################
+        #######################################################
+        # Add more code here ...
+        #######################################################
 
         batch_inputs = batch_inputs.to(device)
         batch_targets = batch_targets.to(device)
+
+        print(batch_inputs.type())  
+        print(batch_targets.type())  
 
         out = model.forward(batch_inputs)
 
