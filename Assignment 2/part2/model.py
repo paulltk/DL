@@ -38,8 +38,8 @@ class TextGenerationModel(nn.Module):
     def forward(self, x):
         
         cell = None
-        output, cell = self.lstm(x, cell)
+        hidden, cell = self.lstm(x, cell)
         
-        print(output.size())
-        print(cell[0].size())
-        print(cell[1])
+        out = self.linear(hidden)
+        
+        return out
