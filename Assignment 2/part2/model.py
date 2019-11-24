@@ -32,11 +32,16 @@ class TextGenerationModel(nn.Module):
         self.lstm_num_hidden = lstm_num_hidden
         self.lstm_num_layers = lstm_num_layers
         
-        layers = []
-        layers.append(nn.LSTM(input_size=self.vocabulary_size, hidden_size = self.lstm_num_hidden, num_layers = self.lstm_num_layers))
-        layers.append(nn.Linear(self.lstm_num_layers, self.vocabulary_size))
-        self.model = nn.Sequential(*layers)
+        self.lstm = nn.LSTM(input_size=self.vocabulary_size, hidden_size = self.lstm_num_hidden, num_layers = self.lstm_num_layers))
+        self.linear = nn.Linear(self.lstm_num_layers, self.vocabulary_size)
                 
     def forward(self, x):
         
-        return self.model(x)
+        cell = None
+        output, cell = self.lstm(x, cell)
+        
+        print(output.size())
+        print(cell[0].size())
+        print(cell[1].size())
+
+        
