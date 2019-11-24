@@ -55,7 +55,7 @@ def train(config):
         print(batch_inputs.size())
         print(batch_targets)
         print(batch_targets.size())
-        test = batch_inputs.convert_to_string()
+        test = dataset.convert_to_string(batch_inputs)
         print(test)
         
 
