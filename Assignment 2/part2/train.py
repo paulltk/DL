@@ -84,7 +84,8 @@ def train(config):
         print("batch_targets", batch_targets.size())  
         print("output size", out.size())
         
-        loss = criterion(out.view(config.batch_size, dataset._vocab_size, config.seq_length), batch_targets)
+        loss = criterion(out.view(config.batch_size, dataset._vocab_size, 
+                                  config.seq_length).type(torch.LongTensor), batch_targets)
 #         accuracy = acc(out, batch_targets)
 
         optimizer.zero_grad()
