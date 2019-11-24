@@ -51,7 +51,7 @@ def train(config):
 #     optimizer = None  # fixme
 
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
-        print(batch_inputs[0,0].type())
+        print(batch_inputs)
         print(batch_inputs.size())
         batch_inputs = (torch.arange(batch_inputs.max()+1) == batch_inputs[...,None]).type(torch.LongTensor)
         print(batch_inputs)
