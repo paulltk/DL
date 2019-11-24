@@ -38,10 +38,11 @@ def train(config):
     
     def acc(predictions, targets):
         accuracy = 0
-        for prediction, target in zip(predictions, targets):
-            if prediction.argmax() == target:
-                accuracy += 1
-        accuracy /= predictions.shape[0]
+        for input_sample, target_sample in zip(predictions, targets):
+            for prediction, target in zip(input_sample, target_sample):
+                if prediction.argmax() == target:
+                    accuracy += 1
+        accuracy /= (predictions.shape[0] * predictions.shape[1])
         return accuracy
 
     # Initialize the device which to run the model on
@@ -85,7 +86,7 @@ def train(config):
         print("output size", out.size(), out.type())
         
         loss = criterion(out.view(config.batch_size, dataset._vocab_size, config.seq_length), batch_targets)
-#         accuracy = acc(out, batch_targets)
+        accuracy = acc(out, batch_targets)
 
         optimizer.zero_grad()
 
