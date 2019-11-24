@@ -39,4 +39,4 @@ class TextGenerationModel(nn.Module):
                 
     def forward(self, x):
         
-        return self.model.forward()
+        return self.model(x)
