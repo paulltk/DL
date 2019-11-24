@@ -57,7 +57,7 @@ def train(config):
 
     # Initialize the model that we are going to use
     model = TextGenerationModel(config.batch_size, config.seq_length, dataset._vocab_size,
-                 config.lstm_num_hidden, config.lstm_num_layers, device)
+                 config.lstm_num_hidden, config.lstm_num_layers, device).to(device)
 
     
     # Setup the loss and optimizer
@@ -65,8 +65,6 @@ def train(config):
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
         
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
-        torch.set_printoptions(threshold=5) 
-     
         batch_inputs = (torch.arange(dataset._vocab_size) == batch_inputs[...,None]) #create one-hot
         
         # Only for time measurement of step through network
@@ -81,9 +79,9 @@ def train(config):
 
         out = model.forward(batch_inputs)
 
-        print("batch_inputs", batch_inputs.size(), batch_inputs.type())  
-        print("batch_targets", batch_targets.size(), batch_targets.type())  
-        print("output size", out.size(), out.type())
+#         print("batch_inputs", batch_inputs.size(), batch_inputs.type())  
+#         print("batch_targets", batch_targets.size(), batch_targets.type())  
+#         print("output size", out.size(), out.type())
         
         loss = criterion(out.view(config.batch_size, dataset._vocab_size, config.seq_length), batch_targets)
 #         accuracy = acc(out, batch_targets)
