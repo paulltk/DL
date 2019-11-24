@@ -39,51 +39,51 @@ def train(config):
     device = torch.device(config.device)
 
     # Initialize the model that we are going to use
-    model = TextGenerationModel( ... )  # fixme
+#     model = TextGenerationModel( ... )  # fixme
 
     # Initialize the dataset and data loader (note the +1)
-    dataset = TextDataset( ... )  # fixme
-    data_loader = DataLoader(dataset, config.batch_size, num_workers=1)
+#     dataset = TextDataset( ... )  # fixme
+#     data_loader = DataLoader(dataset, config.batch_size, num_workers=1)
 
-    # Setup the loss and optimizer
-    criterion = None  # fixme
-    optimizer = None  # fixme
+#     # Setup the loss and optimizer
+#     criterion = None  # fixme
+#     optimizer = None  # fixme
 
-    for step, (batch_inputs, batch_targets) in enumerate(data_loader):
+#     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
 
-        # Only for time measurement of step through network
-        t1 = time.time()
+#         # Only for time measurement of step through network
+#         t1 = time.time()
 
-        #######################################################
-        # Add more code here ...
-        #######################################################
+#         #######################################################
+#         # Add more code here ...
+#         #######################################################
 
-        loss = np.inf   # fixme
-        accuracy = 0.0  # fixme
+#         loss = np.inf   # fixme
+#         accuracy = 0.0  # fixme
 
-        # Just for time measurement
-        t2 = time.time()
-        examples_per_second = config.batch_size/float(t2-t1)
+#         # Just for time measurement
+#         t2 = time.time()
+#         examples_per_second = config.batch_size/float(t2-t1)
 
-        if step % config.print_every == 0:
+#         if step % config.print_every == 0:
 
-            print("[{}] Train Step {:04d}/{:04d}, Batch Size = {}, Examples/Sec = {:.2f}, "
-                  "Accuracy = {:.2f}, Loss = {:.3f}".format(
-                    datetime.now().strftime("%Y-%m-%d %H:%M"), step,
-                    config.train_steps, config.batch_size, examples_per_second,
-                    accuracy, loss
-            ))
+#             print("[{}] Train Step {:04d}/{:04d}, Batch Size = {}, Examples/Sec = {:.2f}, "
+#                   "Accuracy = {:.2f}, Loss = {:.3f}".format(
+#                     datetime.now().strftime("%Y-%m-%d %H:%M"), step,
+#                     config.train_steps, config.batch_size, examples_per_second,
+#                     accuracy, loss
+#             ))
 
-        if step == config.sample_every:
-            # Generate some sentences by sampling from the model
-            pass
+#         if step == config.sample_every:
+#             # Generate some sentences by sampling from the model
+#             pass
 
-        if step == config.train_steps:
-            # If you receive a PyTorch data-loader error, check this bug report:
-            # https://github.com/pytorch/pytorch/pull/9655
-            break
+#         if step == config.train_steps:
+#             # If you receive a PyTorch data-loader error, check this bug report:
+#             # https://github.com/pytorch/pytorch/pull/9655
+#             break
 
-    print('Done training.')
+#     print('Done training.')
 
 
  ################################################################################
