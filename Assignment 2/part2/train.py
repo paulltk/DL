@@ -87,10 +87,8 @@ def train(config):
         
         print(out.size())
         
-        break
-
         loss = criterion(out, batch_targets)
-        accuracy = acc(out, batch_targets)
+#         accuracy = acc(out, batch_targets)
 
         optimizer.zero_grad()
 
