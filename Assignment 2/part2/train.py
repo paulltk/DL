@@ -47,16 +47,13 @@ def train(config):
     data_loader = DataLoader(dataset, config.batch_size, num_workers=1)
 
 #     # Setup the loss and optimizer
-#     criterion = None  # fixme
-#     optimizer = None  # fixme
-
+    criterion = torch.nn.CrossEntropyLoss()
+    optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
+        
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
-        print(batch_inputs)
-        print(batch_inputs.size())
         batch_inputs = (torch.arange(batch_inputs.max()+1) == batch_inputs[...,None]).type(torch.LongTensor)
-        print(batch_inputs)
         print(batch_inputs.size())
-        #         print(batch_targets)
+        print(batch_targets)
         print(batch_targets.size())
 #         for sen in batch_inputs:
 #             test = dataset.convert_to_string(sen)
