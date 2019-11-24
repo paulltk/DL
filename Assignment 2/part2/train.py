@@ -53,11 +53,14 @@ def train(config):
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
         print(batch_inputs)
         print(batch_inputs.size())
-        print(batch_targets)
+        batch_inputs = (torch.arange(batch_inputs.max()) == batch_inputs[...,None]-1)
+        print(batch_inputs)
+        print(batch_inputs.size())
+        #         print(batch_targets)
         print(batch_targets.size())
-        for sen in batch_inputs:
-            test = dataset.convert_to_string(sen)
-            print(test)
+#         for sen in batch_inputs:
+#             test = dataset.convert_to_string(sen)
+#             print(test)
         
 
         break
