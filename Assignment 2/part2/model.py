@@ -41,7 +41,4 @@ class TextGenerationModel(nn.Module):
         output, cell = self.lstm(x, cell)
         
         print(output.size())
-        print(cell)
-        print(cell)
-
-        
+        print(cell.size())
