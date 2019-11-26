@@ -146,6 +146,7 @@ def train(config):
         output.write("train steps \n")
         output.write(str(all_train_steps) + "\n")
 
+
     print('Done training.')
 
 
@@ -179,7 +180,7 @@ if __name__ == "__main__":
 
     # Misc params
     parser.add_argument('--summary_path', type=str, default="./summaries/", help='Output path for summaries')
-    parser.add_argument('--print_every', type=int, default=50, help='How often to print training progress')
+    parser.add_argument('--print_every', type=int, default=1000, help='How often to print training progress')
     parser.add_argument('--sample_every', type=int, default=1000, help='How often to sample from the model')
 
     config = parser.parse_args()
