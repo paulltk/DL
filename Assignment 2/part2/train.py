@@ -117,10 +117,10 @@ def train(config):
                 input[0, 0, previous] = 1
                 out = model.forward(input)
                 out = out.squeeze()
-                if temperature:
+                try:
                     out = torch.softmax(out*temperature, 0)
                     previous = torch.multinomial(out, 1).item()
-                else:
+                except:
                     previous = out.argmax().item()
                 letters.append(previous)
                 sentence = dataset.convert_to_string(letters)
