@@ -45,7 +45,7 @@ def train(config):
     # Initialize the device which to run the model on
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    temperature = 2
+    temperature = 0.5
 
     print("Device", device)
 
