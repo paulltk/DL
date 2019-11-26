@@ -119,7 +119,7 @@ def train(config):
                 if temperature:
                     out = torch.softmax(out/temperature, 0)
                     print(out)
-                    previous = torch.multinomial(out, 1)
+                    previous = torch.multinomial(out, 1).item()
                 else:
                     previous = out.argmax().item()
                 letters.append(previous)
