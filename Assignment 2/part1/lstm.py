@@ -32,24 +32,24 @@ class LSTM(nn.Module):
         self.input_dim = input_dim
         self.device = device
 
-        self.Wgx = nn.Parameter(nn.init.xavier_uniform_(torch.empty((input_dim, num_hidden))).to(self.device))
-        self.Wgh = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_hidden))).to(self.device))
+        self.Wgx = nn.Parameter(nn.init.kaiming_normal_(torch.empty((input_dim, num_hidden))).to(self.device))
+        self.Wgh = nn.Parameter(nn.init.kaiming_normal_(torch.empty((num_hidden, num_hidden))).to(self.device))
 
-        self.Wix = nn.Parameter(nn.init.xavier_uniform_(torch.empty((input_dim, num_hidden))).to(self.device))
-        self.Wih = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_hidden))).to(self.device))
+        self.Wix = nn.Parameter(nn.init.kaiming_normal_(torch.empty((input_dim, num_hidden))).to(self.device))
+        self.Wih = nn.Parameter(nn.init.kaiming_normal_(torch.empty((num_hidden, num_hidden))).to(self.device))
 
-        self.Wfx = nn.Parameter(nn.init.xavier_uniform_(torch.empty((input_dim, num_hidden))).to(self.device))
-        self.Wfh = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_hidden))).to(self.device))
+        self.Wfx = nn.Parameter(nn.init.kaiming_normal_(torch.empty((input_dim, num_hidden))).to(self.device))
+        self.Wfh = nn.Parameter(nn.init.kaiming_normal_(torch.empty((num_hidden, num_hidden))).to(self.device))
 
-        self.Wox = nn.Parameter(nn.init.xavier_uniform_(torch.empty((input_dim, num_hidden))).to(self.device))
-        self.Woh = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_hidden))).to(self.device))
+        self.Wox = nn.Parameter(nn.init.kaiming_normal_(torch.empty((input_dim, num_hidden))).to(self.device))
+        self.Woh = nn.Parameter(nn.init.kaiming_normal_(torch.empty((num_hidden, num_hidden))).to(self.device))
 
         self.Bg = nn.Parameter(torch.zeros(num_hidden).to(self.device))
         self.Bi = nn.Parameter(torch.zeros(num_hidden).to(self.device))
-        self.Bf = nn.Parameter(torch.zeros(num_hidden).to(self.device))
+        self.Bf = nn.Parameter(torch.ones(num_hidden).to(self.device))
         self.Bo = nn.Parameter(torch.zeros(num_hidden).to(self.device))
 
-        self.Wph = nn.Parameter(nn.init.xavier_uniform_(torch.empty((num_hidden, num_classes))).to(self.device))
+        self.Wph = nn.Parameter(nn.init.kaimig_normal_(torch.empty((num_hidden, num_classes))).to(self.device))
 
         self.Bp = nn.Parameter(torch.zeros(num_classes).to(self.device))
 
