@@ -45,6 +45,8 @@ def train(config):
     # Initialize the device which to run the model on
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
+    temperature = 0.5
+
     print("Device", device)
 
     print("book:", config.txt_file)
@@ -113,8 +115,13 @@ def train(config):
                 input[0, 0, previous] = 1
                 out = model.forward(input)
                 out = out.squeeze()
-                previous = out.argmax().item()
-                print(previous)
+                print(out)
+                if temperature:
+                    out = torch.softmax(out/temperature, 0)
+                    print(out)
+                    previous = torch.multinomial(out, 1)
+                else:
+                    previous = out.argmax().item()
                 letters.append(previous)
                 sentence = dataset.convert_to_string(letters)
             print(sentence)
@@ -136,10 +143,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     # Model params
-    # parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
+    parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
     # parser.add_argument('--txt_file', type=str, default="assets/book_EN_grimms_fairy_tails.txt", help="Path to a .txt file to train on")
-    parser.add_argument('--txt_file', type=str, default="assets/book_NL_darwin_reis_om_de_wereld.txt", help="Path to a .txt file to train on")
-    # parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
+    # parser.add_argument('--txt_file', type=str, default="assets/book_NL_darwin_reis_om_de_wereld.txt", help="Path to a .txt file to train on")
     parser.add_argument('--seq_length', type=int, default=30, help='Length of an input sequence')
     parser.add_argument('--lstm_num_hidden', type=int, default=128, help='Number of hidden units in the LSTM')
     parser.add_argument('--lstm_num_layers', type=int, default=2, help='Number of LSTM layers in the model')
