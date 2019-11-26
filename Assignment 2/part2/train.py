@@ -54,7 +54,7 @@ def train(config):
     model = TextGenerationModel(config.batch_size, config.seq_length, dataset._vocab_size,
                  config.lstm_num_hidden, config.lstm_num_layers, device).to(device)
 
-    model = nn.DataParallel(model)
+    # model = nn.DataParallel(model)
 
     # Setup the loss and optimizer
     criterion = torch.nn.CrossEntropyLoss()
