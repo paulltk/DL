@@ -110,7 +110,7 @@ def train(config):
                 ############################################################################
                 # QUESTION: what happens here and why?
                 ############################################################################
-                torch.nn.utils.clip_grad_norm(model.parameters(), max_norm=config.max_norm)
+                torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=config.max_norm)
                 ############################################################################
 
                 optimizer.step()

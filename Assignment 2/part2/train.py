@@ -28,29 +28,38 @@ import torch
 import torch.optim as optim
 from torch.utils.data import DataLoader
 
-from part2.dataset import TextDataset
-from part2.model import TextGenerationModel
+from dataset import TextDataset
+from model import TextGenerationModel
 
 ################################################################################
 
 def train(config):
 
+    
+    def acc(predictions, targets):
+        accuracy = (predictions.argmax(dim=2) == targets).float().mean()
+        return accuracy
+
     # Initialize the device which to run the model on
-    device = torch.device(config.device)
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    # Initialize the model that we are going to use
-    model = TextGenerationModel( ... )  # fixme
-
+    print("book:", config.txt_file)
+    
     # Initialize the dataset and data loader (note the +1)
-    dataset = TextDataset( ... )  # fixme
+    dataset = TextDataset(config.txt_file, config.seq_length)  # fixme
     data_loader = DataLoader(dataset, config.batch_size, num_workers=1)
 
+    # Initialize the model that we are going to use
+    model = TextGenerationModel(config.batch_size, config.seq_length, dataset._vocab_size,
+                 config.lstm_num_hidden, config.lstm_num_layers, device).to(device)
+    
     # Setup the loss and optimizer
-    criterion = None  # fixme
-    optimizer = None  # fixme
-
+    criterion = torch.nn.CrossEntropyLoss()
+    optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
+        
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
-
+        batch_inputs = (torch.arange(dataset._vocab_size) == batch_inputs[...,None]) #create one-hot
+        
         # Only for time measurement of step through network
         t1 = time.time()
 
@@ -58,8 +67,24 @@ def train(config):
         # Add more code here ...
         #######################################################
 
-        loss = np.inf   # fixme
-        accuracy = 0.0  # fixme
+        batch_inputs = batch_inputs.float().to(device)
+        batch_targets = batch_targets.to(device)
+
+        out = model.forward(batch_inputs)
+
+#         print("batch_inputs", batch_inputs.size(), batch_inputs.type())  
+#         print("batch_targets", batch_targets.size(), batch_targets.type())  
+#         print("output size", out.size(), out.type())
+        
+        loss = criterion(out.view(config.batch_size, dataset._vocab_size, config.seq_length), batch_targets)
+        accuracy = acc(out, batch_targets)
+
+        optimizer.zero_grad()
+        loss.backward()
+        
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=config.max_norm)
+        
+        optimizer.step()
 
         # Just for time measurement
         t2 = time.time()
@@ -67,7 +92,7 @@ def train(config):
 
         if step % config.print_every == 0:
 
-            print("[{}] Train Step {:04d}/{:04d}, Batch Size = {}, Examples/Sec = {:.2f}, "
+            print("[{}] Train Step {:04d}/{:04f}, Batch Size = {}, Examples/Sec = {:.2f}, "
                   "Accuracy = {:.2f}, Loss = {:.3f}".format(
                     datetime.now().strftime("%Y-%m-%d %H:%M"), step,
                     config.train_steps, config.batch_size, examples_per_second,
@@ -95,14 +120,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     # Model params
-    parser.add_argument('--txt_file', type=str, required=True, help="Path to a .txt file to train on")
+    parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
     parser.add_argument('--seq_length', type=int, default=30, help='Length of an input sequence')
     parser.add_argument('--lstm_num_hidden', type=int, default=128, help='Number of hidden units in the LSTM')
     parser.add_argument('--lstm_num_layers', type=int, default=2, help='Number of LSTM layers in the model')
 
     # Training params
     parser.add_argument('--batch_size', type=int, default=64, help='Number of examples to process in a batch')
-    parser.add_argument('--learning_rate', type=float, default=2e-3, help='Learning rate')
+    parser.add_argument('--learning_rate', type=float, default=0.001, help='Learning rate')
 
     # It is not necessary to implement the following three params, but it may help training.
     parser.add_argument('--learning_rate_decay', type=float, default=0.96, help='Learning rate decay fraction')
