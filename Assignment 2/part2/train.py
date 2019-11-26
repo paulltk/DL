@@ -107,19 +107,20 @@ def train(config):
                     config.train_steps, config.batch_size, examples_per_second,
                     accuracy, loss
             ))
-            print("sample input: {}\nsample output: {}\n".format(
-                dataset.convert_to_string(batch_inputs[0].tolist()),
-                dataset.convert_to_string(torch.argmax(out, dim=2)[0].tolist())
-            ))
+            # print("sample input: {}\nsample output: {}\n".format(
+            #     dataset.convert_to_string(batch_inputs[0].tolist()),
+            #     dataset.convert_to_string(torch.argmax(out, dim=2)[0].tolist())
+            # ))
 
 
         if step % config.sample_every == 0:
             previous = random.randint(0, dataset._vocab_size-1)
             letters = [previous]
+            cell = None
             for i in range(config.seq_length):
                 input = torch.zeros(1, 1, dataset._vocab_size).to(device)
                 input[0, 0, previous] = 1
-                out = model.forward(input)
+                out, cell = model.forward(input, cell)
                 out = out.squeeze()
                 if temperature:
                     out = torch.softmax(out*temperature, 0)
