@@ -45,6 +45,8 @@ def train(config):
     # Initialize the device which to run the model on
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
+    print("Device", device)
+
     print("book:", config.txt_file)
     
     # Initialize the dataset and data loader (note the +1)
@@ -111,8 +113,8 @@ def train(config):
                 input[0, 0, previous] = 1
                 out = model.forward(input)
                 out = out.squeeze()
-                print(out)
                 previous = out.argmax().item()
+                print(previous)
                 letters.append(previous)
                 sentence = dataset.convert_to_string(letters)
             print(sentence)
