@@ -103,17 +103,17 @@ def train(config):
             ))
 
 
-        # if step % config.sample_every == 0:
-        #     previous = random.randint(0, dataset._vocab_size-1)
-        #     letters = []
-        #     for i in range(config.seq_length):
-        #         input = torch.zeros(1, 1, dataset._vocab_size).to(device)
-        #         input[0, 0, previous] = 1
-        #         out = model.forward(input)
-        #         previous = out.argmax().item()
-        #         letters.append(previous)
-        #         sentence = dataset.convert_to_string(letters)
-        #     print(sentence)
+        if step % config.sample_every == 0:
+            previous = random.randint(0, dataset._vocab_size-1)
+            letters = []
+            for i in range(config.seq_length):
+                input = torch.zeros(1, 1, dataset._vocab_size).to(device)
+                input[0, 0, previous] = 1
+                out = model.forward(input)
+                previous = out.argmax().item()
+                letters.append(previous)
+                sentence = dataset.convert_to_string(letters)
+            print(sentence)
 
         if step == config.train_steps:
             # If you receive a PyTorch data-loader error, check this bug report:
@@ -141,8 +141,8 @@ if __name__ == "__main__":
     parser.add_argument('--lstm_num_layers', type=int, default=2, help='Number of LSTM layers in the model')
 
     # Training params
-    parser.add_argument('--batch_size', type=int, default=64, help='Number of examples to process in a batch')
-    parser.add_argument('--learning_rate', type=float, default=2e-3, help='Learning rate')
+    parser.add_argument('--batch_size', type=int, default=128, help='Number of examples to process in a batch')
+    parser.add_argument('--learning_rate', type=float, default=5e-3, help='Learning rate')
 
     # It is not necessary to implement the following three params, but it may help training.
     parser.add_argument('--learning_rate_decay', type=float, default=0.96, help='Learning rate decay fraction')
