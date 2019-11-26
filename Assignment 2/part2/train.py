@@ -45,7 +45,7 @@ def train(config):
     # Initialize the device which to run the model on
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    temperature = 0.5
+    # temperature = 0.5
 
     print("Device", device)
 
@@ -67,6 +67,7 @@ def train(config):
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
         # batch_inputs = (torch.arange(dataset._vocab_size) == batch_inputs[...,None]) #create one-hot
         batch_inputs = embedding(batch_inputs)
+
         # Only for time measurement of step through network
         t1 = time.time()
 
@@ -117,7 +118,7 @@ def train(config):
                 out = model.forward(input)
                 out = out.squeeze()
                 if temperature:
-                    out = torch.softmax(out/temperature, 0)
+                    out = torch.softmax(out*temperature, 0)
                     previous = torch.multinomial(out, 1).item()
                 else:
                     previous = out.argmax().item()
