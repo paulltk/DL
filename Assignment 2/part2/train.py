@@ -60,7 +60,7 @@ def train(config):
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
 
     gen_lengths = [20, 30, 60, 100]
-    temperature = False
+    temperature = 0.5
 
     all_accuracies = []
     all_losses = []
@@ -76,12 +76,12 @@ def train(config):
         batch_inputs = batch_inputs.float().to(device)
         batch_targets = batch_targets.to(device)
 
-        out, _ = model.forward(batch_inputs) #forward pass
+        out, _ = model.forward(batch_inputs, temperature=temperature) # forward pass
 
-        loss = criterion(out.permute(0, 2, 1), batch_targets) #calculate the loss
-        accuracy = acc(out, batch_targets) #calculate the accuracy
+        loss = criterion(out.permute(0, 2, 1), batch_targets) # calculate the loss
+        accuracy = acc(out, batch_targets) # calculate the accuracy
 
-        optimizer.zero_grad() #throw away previous grads
+        optimizer.zero_grad() # throw away previous grads
 
         loss.backward() # calculate new gradients
 
@@ -126,11 +126,7 @@ def train(config):
 
                     # get the next letter
                     out = out.squeeze()
-                    if temperature:
-                        out = torch.softmax(out*temperature, 0)
-                        previous = torch.multinomial(out, 1).item()
-                    else:
-                        previous = out.argmax().item()
+                    previous = out.argmax().item()
                     letters.append(previous)
 
                 # convert to sentence
