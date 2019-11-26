@@ -6,11 +6,10 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --time=1:00:00
 #SBATCH --mem=60000M
-#SBATCH --partition=gpu_shared_course
+#SBATCH --partition=gpu_shared
 #SBATCH --gres=gpu:1
 
 module purge
-module load eb
 
 module load pre2019
 module load Python/3.6.3-foss-2017b
