@@ -45,7 +45,7 @@ def train(config):
     # Initialize the device which to run the model on
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    # temperature = 0.5
+    temperature = False
 
     print("Device", device)
 
@@ -117,10 +117,10 @@ def train(config):
                 input[0, 0, previous] = 1
                 out = model.forward(input)
                 out = out.squeeze()
-                try:
+                if temperature:
                     out = torch.softmax(out*temperature, 0)
                     previous = torch.multinomial(out, 1).item()
-                except:
+                else:
                     previous = out.argmax().item()
                 letters.append(previous)
                 sentence = dataset.convert_to_string(letters)
