@@ -106,8 +106,8 @@ def train(config):
         if step % config.sample_every == 0:
             previous = random.randint(0, dataset._vocab_size-1)
             letters = []
-            for i in range(config.seq_length):
-                input = torch.zeros(1, 1, dataset._vocab_size),to(device)
+            for i in range(config.seq_length):  
+                input = torch.zeros(1, 1, dataset._vocab_size).to(device)
                 input[0, 0, previous] = 1
                 out = model.forward(input)
                 previous = out.argmax().item()
