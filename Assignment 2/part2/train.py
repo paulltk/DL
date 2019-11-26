@@ -61,6 +61,7 @@ def train(config):
 
     gen_lengths = [20, 30, 60, 100]
     temperature = 2
+    print("temperature:", temperature)
 
     all_accuracies = []
     all_losses = []
