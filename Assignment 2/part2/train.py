@@ -76,7 +76,7 @@ def train(config):
         # print("batch_targets", batch_targets.size(), batch_targets.type())
         # print("output size", out.size(), out.type())
         
-        loss = criterion(out.view(config.batch_size, dataset._vocab_size, config.seq_length), batch_targets)
+        loss = criterion(out.permute(0, 2, 1), batch_targets)
         accuracy = acc(out, batch_targets)
 
         optimizer.zero_grad()
