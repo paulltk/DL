@@ -9,15 +9,11 @@
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/assignment_2.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/part1/__init__.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/create_graphs.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/dataset.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/figures/Figure_1.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/grads_over_time.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/part1/jaja.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/part1/lstm.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/lstm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/part1/rnn.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/train.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part1/vanilla_rnn.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/part2/__init__.py" afterDir="false" />
