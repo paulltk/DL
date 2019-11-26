@@ -110,7 +110,9 @@ def train(config):
                 input = torch.zeros(1, 1, dataset._vocab_size).to(device)
                 input[0, 0, previous] = 1
                 out = model.forward(input)
-                previous = out.squeeze().argmax().item()
+                out = out.squeeze()
+                print(out)
+                previous = out.argmax().item()
                 letters.append(previous)
                 sentence = dataset.convert_to_string(letters)
             print(sentence)
