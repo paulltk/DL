@@ -132,8 +132,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     # Model params
-    parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
-    # parser.add_argument('--txt_file', type=str, default="assets/book_EN_grimms_fairy_tails.txt", help="Path to a .txt file to train on")
+    # parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
+    parser.add_argument('--txt_file', type=str, default="assets/book_EN_grimms_fairy_tails.txt", help="Path to a .txt file to train on")
     # parser.add_argument('--txt_file', type=str, default="assets/book_NL_darwin_reis_om_de_wereld.txt", help="Path to a .txt file to train on")
     # parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
     parser.add_argument('--seq_length', type=int, default=30, help='Length of an input sequence')
