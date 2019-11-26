@@ -60,7 +60,7 @@ def train(config):
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
 
     gen_lengths = [20, 30, 60, 100]
-    temperature = 0.5
+    temperature = 2
 
     all_accuracies = []
     all_losses = []

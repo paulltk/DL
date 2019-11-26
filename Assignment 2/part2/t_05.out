@@ -1,0 +1,103 @@
+Device cuda:0
+book: assets/book_EN_democracy_in_the_US.txt
+Initialize dataset with 1148437 characters, 38 unique.
+[2019-11-26 16:25] Train Step 0000/5000.000000, Batch Size = 64, Examples/Sec = 1490.80, Accuracy = 0.00, Loss = 3.645
+Generated sentence with length of 20
+800000000000000000000
+Generated sentence with length of 30
+o000000000000000000000000000000
+Generated sentence with length of 60
+t000000000000000000000000000000000000000000000000000000000000
+Generated sentence with length of 100
+p0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+[2019-11-26 16:25] Train Step 0500/5000.000000, Batch Size = 64, Examples/Sec = 7791.35, Accuracy = 0.32, Loss = 2.419
+Generated sentence with length of 20
+ute the the the the t
+Generated sentence with length of 30
+l the the the the the the the t
+Generated sentence with length of 60
+4 the the the the the the the the the the the the the the the
+Generated sentence with length of 100
+n the the the the the the the the the the the the the the the the the the the the the the the the the
+[2019-11-26 16:26] Train Step 1000/5000.000000, Batch Size = 64, Examples/Sec = 7777.81, Accuracy = 0.39, Loss = 2.053
+Generated sentence with length of 20
+mere the anter the an
+Generated sentence with length of 30
+ the anter the anter the anter
+Generated sentence with length of 60
+ver the anter the anter the anter the anter the anter the ant
+Generated sentence with length of 100
+ the anter the anter the anter the anter the anter the anter the anter the anter the anter the anter
+[2019-11-26 16:26] Train Step 1500/5000.000000, Batch Size = 64, Examples/Sec = 7674.63, Accuracy = 0.43, Loss = 1.951
+Generated sentence with length of 20
+zer the proce of the 
+Generated sentence with length of 30
+0 the proce of the proce of the
+Generated sentence with length of 60
+2 the proce of the proce of the proce of the proce of the pro
+Generated sentence with length of 100
+f the proce of the proce of the proce of the proce of the proce of the proce of the proce of the proc
+[2019-11-26 16:26] Train Step 2000/5000.000000, Batch Size = 64, Examples/Sec = 7656.02, Accuracy = 0.45, Loss = 1.854
+Generated sentence with length of 20
+f the constitution of
+Generated sentence with length of 30
+contreal the constitution of th
+Generated sentence with length of 60
+le the constitution of the constitution of the constitution o
+Generated sentence with length of 100
+re the constitution of the constitution of the constitution of the constitution of the constitution o
+[2019-11-26 16:26] Train Step 2500/5000.000000, Batch Size = 64, Examples/Sec = 4105.02, Accuracy = 0.50, Loss = 1.702
+Generated sentence with length of 20
+30  the states of th
+Generated sentence with length of 30
+g the states of the states of t
+Generated sentence with length of 60
+he states of the states of the states of the states of the st
+Generated sentence with length of 100
+uthic of the states of the states of the states of the states of the states of the states of the stat
+[2019-11-26 16:26] Train Step 3000/5000.000000, Batch Size = 64, Examples/Sec = 8142.06, Accuracy = 0.56, Loss = 1.529
+Generated sentence with length of 20
+100  the states of t
+Generated sentence with length of 30
+be the states of the states of 
+Generated sentence with length of 60
+n the states of the states of the states of the states of the
+Generated sentence with length of 100
+ce of the states of the states of the states of the states of the states of the states of the states 
+[2019-11-26 16:26] Train Step 3500/5000.000000, Batch Size = 64, Examples/Sec = 8245.09, Accuracy = 0.52, Loss = 1.582
+Generated sentence with length of 20
+0  the states of the
+Generated sentence with length of 30
+he state of the states of the s
+Generated sentence with length of 60
+be the states of the states of the states of the states of th
+Generated sentence with length of 100
+4 and the states of the states of the states of the states of the states of the states of the states
+[2019-11-26 16:26] Train Step 4000/5000.000000, Batch Size = 64, Examples/Sec = 8284.28, Accuracy = 0.55, Loss = 1.449
+Generated sentence with length of 20
+in the constitution o
+Generated sentence with length of 30
+7 and the american in the cons
+Generated sentence with length of 60
+present of the constitution of the constitution of the consti
+Generated sentence with length of 100
+0 and the american in the constitution of the constitution of the constitution of the constitution o
+[2019-11-26 16:27] Train Step 4500/5000.000000, Batch Size = 64, Examples/Sec = 8201.01, Accuracy = 0.57, Loss = 1.417
+Generated sentence with length of 20
+re states of the stat
+Generated sentence with length of 30
+pertain the states of the state
+Generated sentence with length of 60
+xercise the states of the states of the states of the states 
+Generated sentence with length of 100
+ce of the states of the states of the states of the states of the states of the states of the states 
+[2019-11-26 16:27] Train Step 5000/5000.000000, Batch Size = 64, Examples/Sec = 8236.24, Accuracy = 0.56, Loss = 1.399
+Generated sentence with length of 20
+ver the states of the
+Generated sentence with length of 30
+quently are the states of the s
+Generated sentence with length of 60
+7 the states of the states of the states of the states of th
+Generated sentence with length of 100
+y and the states of the states of the states of the states of the states of the states of the states 
+Done training.
