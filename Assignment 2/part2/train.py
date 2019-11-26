@@ -175,13 +175,13 @@ if __name__ == "__main__":
     parser.add_argument('--learning_rate_step', type=int, default=5000, help='Learning rate step')
     parser.add_argument('--dropout_keep_prob', type=float, default=1.0, help='Dropout keep probability')
 
-    parser.add_argument('--train_steps', type=int, default=100000, help='Number of training steps')
+    parser.add_argument('--train_steps', type=int, default=5000, help='Number of training steps')
     parser.add_argument('--max_norm', type=float, default=5.0, help='--')
 
     # Misc params
     parser.add_argument('--summary_path', type=str, default="./summaries/", help='Output path for summaries')
-    parser.add_argument('--print_every', type=int, default=1000, help='How often to print training progress')
-    parser.add_argument('--sample_every', type=int, default=1000, help='How often to sample from the model')
+    parser.add_argument('--print_every', type=int, default=500, help='How often to print training progress')
+    parser.add_argument('--sample_every', type=int, default=500, help='How often to sample from the model')
 
     config = parser.parse_args()
 
