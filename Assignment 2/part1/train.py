@@ -157,43 +157,7 @@ def train(config):
         output.write("train steps \n")
         output.write(str(all_train_steps) + "\n")
 
-    #plt.figure(figsize=(19, 6))
 
-    # mean_acc = list(np.array(all_accuracies).mean(axis=1))
-    # maxstd_acc = list(np.array(all_accuracies).mean(axis=1) + np.array(all_accuracies).std(axis=1))
-    # minstd_acc = list(np.array(all_accuracies).mean(axis=1) - np.array(all_accuracies).std(axis=1))
-    #
-    # mean_loss = list(np.array(all_losses).mean(axis=1))
-    # maxstd_loss = list(np.array(all_losses).mean(axis=1) + np.array(all_losses).std(axis=1))
-    # minstd_loss = list(np.array(all_losses).mean(axis=1) - np.array(all_losses).std(axis=1))
-
-    mean_train_steps = list(np.array(all_train_steps).mean(axis=1))
-
-    # plt.subplot(1, 3, 1)
-    # plt.plot(T_options, all_accuracies, "o", color="orange")
-    # plt.plot(T_options, mean_acc, label="accuracy mean", color="orange")
-    # plt.fill_between(T_options, maxstd_acc, minstd_acc, alpha = 0.2, label="accuracy std", color="orange")
-    # plt.xlabel("input_length")
-    # plt.ylabel("accuracy")
-    # plt.legend()
-    #
-    # plt.subplot(1, 3, 2)
-    # plt.plot(T_options, all_losses, "o", color="orange")
-    # plt.plot(T_options, mean_loss, label="loss mean", color="orange")
-    # plt.fill_between(T_options, maxstd_loss, minstd_loss, alpha = 0.2, label="loss std", color="orange")
-    # plt.xlabel("input_length")
-    # plt.ylabel("loss")
-    # plt.legend()
-    #
-    # plt.subplot(1, 3, 3)
-    # plt.plot(T_options, mean_train_steps, label="average train steps", color="orange")
-    # plt.xlabel("input_length")
-    # plt.ylabel("train steps")
-    # plt.legend()
-    #
-    # plt.savefig("ltsm2.png")
-    #
-    # plt.show()
 
 if __name__ == "__main__":
 

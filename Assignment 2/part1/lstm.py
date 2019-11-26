@@ -64,7 +64,7 @@ class LSTM(nn.Module):
 
         for i in range(self.sec_length):
             numbers = x[:, i].view(x.size(0), 1)
-            
+
             g = (numbers @ self.Wgx + h @ self.Wgh + self.Bg).tanh()
             i = (numbers @ self.Wix + h @ self.Wih + self.Bi).sigmoid()
             f = (numbers @ self.Wfx + h @ self.Wfh + self.Bf).sigmoid()
