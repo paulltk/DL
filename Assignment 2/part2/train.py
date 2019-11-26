@@ -106,14 +106,14 @@ def train(config):
         if step % config.sample_every == 0:
             previous = random.randint(0, dataset._vocab_size-1)
             letters = []
-            for i in range(config.seq_length):  
+            for i in range(config.seq_length):
                 input = torch.zeros(1, 1, dataset._vocab_size).to(device)
                 input[0, 0, previous] = 1
                 out = model.forward(input)
                 previous = out.argmax().item()
                 letters.append(previous)
                 sentence = dataset.convert_to_string(letters)
-                print(sentence)
+            print(sentence)
 
         if step == config.train_steps:
             # If you receive a PyTorch data-loader error, check this bug report:
