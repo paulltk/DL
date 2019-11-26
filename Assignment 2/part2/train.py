@@ -107,6 +107,10 @@ def train(config):
                     config.train_steps, config.batch_size, examples_per_second,
                     accuracy, loss
             ))
+            print("sample input: {}\nsample output: {}\n".format(
+                dataset.convert_to_string(batch_inputs[0].tolist()),
+                dataset.convert_to_string(torch.argmax(out, dim=2)[0].tolist())
+            ))
 
 
         if step % config.sample_every == 0:
