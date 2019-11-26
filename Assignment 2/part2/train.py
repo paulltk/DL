@@ -62,11 +62,11 @@ def train(config):
     # Setup the loss and optimizer
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
-    embedding = nn.Embedding(dataset._vocab_size, dataset._vocab_size)
+    # embedding = nn.Embedding(dataset._vocab_size, dataset._vocab_size)
 
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
-        # batch_inputs = (torch.arange(dataset._vocab_size) == batch_inputs[...,None]) #create one-hot
-        batch_inputs = embedding(batch_inputs)
+        batch_inputs = (torch.arange(dataset._vocab_size) == batch_inputs[...,None]) #create one-hot
+        # batch_inputs = embedding(batch_inputs)
 
         # Only for time measurement of step through network
         t1 = time.time()
@@ -146,7 +146,7 @@ if __name__ == "__main__":
     parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
     # parser.add_argument('--txt_file', type=str, default="assets/book_EN_grimms_fairy_tails.txt", help="Path to a .txt file to train on")
     # parser.add_argument('--txt_file', type=str, default="assets/book_NL_darwin_reis_om_de_wereld.txt", help="Path to a .txt file to train on")
-    parser.add_argument('--seq_length', type=int, default=30, help='Length of an input sequence')
+    parser.add_argument('--seq_length', type=int, default=20, help='Length of an input sequence')
     parser.add_argument('--lstm_num_hidden', type=int, default=128, help='Number of hidden units in the LSTM')
     parser.add_argument('--lstm_num_layers', type=int, default=2, help='Number of LSTM layers in the model')
 
