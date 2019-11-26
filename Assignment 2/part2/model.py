@@ -37,7 +37,7 @@ class TextGenerationModel(nn.Module):
         self.linear = nn.Linear(self.lstm_num_hidden, self.vocabulary_size)
                 
     def forward(self, x):
-        
+        cell = None
         hidden, cell = self.lstm(x, cell)
         
         out = self.linear(hidden)
