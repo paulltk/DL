@@ -18,6 +18,7 @@ from __future__ import division
 from __future__ import print_function
 
 import os
+import random
 import time
 from datetime import datetime
 import argparse
@@ -72,7 +73,7 @@ def train(config):
         batch_targets = batch_targets.to(device)
 
         out = model.forward(batch_inputs)
-        #
+
         # print("batch_inputs", batch_inputs.size(), batch_inputs.type())
         # print("batch_targets", batch_targets.size(), batch_targets.type())
         # print("output size", out.size(), out.type())
@@ -101,9 +102,18 @@ def train(config):
                     accuracy, loss
             ))
 
-        if step == config.sample_every:
-            # Generate some sentences by sampling from the model
-            pass
+
+        if step % config.sample_every == 0:
+            previous = random.randint(0, dataset._vocab_size-1)
+            letters = []
+            for i in range(config.seq_length):
+                input = torch.zeros(1, 1, dataset._vocab_size)
+                input[0, 0, previous] = 1
+                out = model.forward(input)
+                previous = out.argmax().item()
+                letters.append(previous)
+                sentence = dataset.convert_to_string(letters)
+                print(sentence)
 
         if step == config.train_steps:
             # If you receive a PyTorch data-loader error, check this bug report:
@@ -122,16 +132,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     # Model params
-    # parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
+    parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
     # parser.add_argument('--txt_file', type=str, default="assets/book_EN_grimms_fairy_tails.txt", help="Path to a .txt file to train on")
-    parser.add_argument('--txt_file', type=str, default="assets/book_NL_darwin_reis_om_de_wereld.txt", help="Path to a .txt file to train on")
+    # parser.add_argument('--txt_file', type=str, default="assets/book_NL_darwin_reis_om_de_wereld.txt", help="Path to a .txt file to train on")
     # parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
     parser.add_argument('--seq_length', type=int, default=30, help='Length of an input sequence')
-    parser.add_argument('--lstm_num_hidden', type=int, default=64, help='Number of hidden units in the LSTM')
+    parser.add_argument('--lstm_num_hidden', type=int, default=128, help='Number of hidden units in the LSTM')
     parser.add_argument('--lstm_num_layers', type=int, default=2, help='Number of LSTM layers in the model')
 
     # Training params
-    parser.add_argument('--batch_size', type=int, default=128, help='Number of examples to process in a batch')
+    parser.add_argument('--batch_size', type=int, default=64, help='Number of examples to process in a batch')
     parser.add_argument('--learning_rate', type=float, default=2e-3, help='Learning rate')
 
     # It is not necessary to implement the following three params, but it may help training.
