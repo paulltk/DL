@@ -128,7 +128,7 @@ if __name__ == "__main__":
     # parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
     parser.add_argument('--seq_length', type=int, default=30, help='Length of an input sequence')
     parser.add_argument('--lstm_num_hidden', type=int, default=128, help='Number of hidden units in the LSTM')
-    parser.add_argument('--lstm_num_layers', type=int, default=3, help='Number of LSTM layers in the model')
+    parser.add_argument('--lstm_num_layers', type=int, default=2, help='Number of LSTM layers in the model')
 
     # Training params
     parser.add_argument('--batch_size', type=int, default=128, help='Number of examples to process in a batch')
