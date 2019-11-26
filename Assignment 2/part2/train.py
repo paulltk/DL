@@ -115,10 +115,8 @@ def train(config):
                 input[0, 0, previous] = 1
                 out = model.forward(input)
                 out = out.squeeze()
-                print(out)
                 if temperature:
                     out = torch.softmax(out/temperature, 0)
-                    print(out)
                     previous = torch.multinomial(out, 1).item()
                 else:
                     previous = out.argmax().item()
