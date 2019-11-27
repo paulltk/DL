@@ -38,8 +38,8 @@ from lstm import LSTM
 def train(config):
 
     #set variables
-    T_options = list(range(30, 36, 1))
-    config.model_type = "RNN"
+    T_options = list(range(1, 40, 1))
+    config.model_type = "LSTM"
 
     assert config.model_type in ('RNN', 'LSTM')
 
@@ -65,8 +65,11 @@ def train(config):
         final_train_steps = []
 
         config.input_length = T
+        if config.model_type == "LSTM":
+            if T > 20:
+                config.learning_rate = 0.01
 
-        for i in range(4):
+        for i in range(1):
 
             print("Iteration", i, "with T:", T,)
 
