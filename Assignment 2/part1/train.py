@@ -66,9 +66,10 @@ def train(config):
         final_train_steps = []
 
         config.input_length = T
-        if config.model_type == "LSTM":
-            if T > 20:
-                config.learning_rate = 0.02
+
+        # if config.model_type == "LSTM":
+        #     if T > 20:
+        #         config.learning_rate = 0.02
 
         for i in range(1):
 
