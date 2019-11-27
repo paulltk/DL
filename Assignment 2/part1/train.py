@@ -38,7 +38,7 @@ from lstm import LSTM
 def train(config):
 
     #set variables
-    T_options = list(range(1, 40, 1))
+    T_options = list(range(20, 40, 1))
     config.model_type = "LSTM"
 
     assert config.model_type in ('RNN', 'LSTM')
@@ -67,11 +67,11 @@ def train(config):
         config.input_length = T
         if config.model_type == "LSTM":
             if T > 20:
-                config.learning_rate = 0.01
+                config.learning_rate = 0.02
 
         for i in range(1):
 
-            print("Iteration", i, "with T:", T,)
+            print("Iteration", i, "with T:", T, "learning rate:", config.learning_rate)
 
             # Initialize the dataset and data loader (note the +1)
             dataset = PalindromeDataset(config.input_length + 1)
