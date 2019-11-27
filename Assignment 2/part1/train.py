@@ -38,22 +38,17 @@ from lstm import LSTM
 def train(config):
 
     #set variables
-    T_options = list(range(5, 36, 2))
-    config.model_type = "LSTM"
+    T_options = list(range(5, 25, 1))
+    config.model_type = "RNN"
 
     assert config.model_type in ('RNN', 'LSTM')
 
     # Initialize the device which to run the model on
-    device = torch.device(config.device)
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     def acc(predictions, targets):
-        accuracy = 0
-        for prediction, target in zip(predictions, targets):
-            if prediction.argmax() == target:
-                accuracy += 1
-        accuracy /= predictions.shape[0]
+        accuracy = (predictions.argmax(dim=1) == targets).float().mean()
         return accuracy
-
 
     all_accuracies = []
     all_losses = []
@@ -71,7 +66,7 @@ def train(config):
 
         config.input_length = T
 
-        for i in range(6):
+        for i in range(4):
 
             print("Iteration", i, "with T:", T,)
 
@@ -130,7 +125,7 @@ def train(config):
                     accuracies = np.append(accuracies, accuracy)
                     losses = np.append(losses, loss.item())
 
-                if step == config.train_steps or accuracy.item() == 1:
+                if step == config.train_steps or (step % 10 == 0 and accuracy == 1):
                     # If you receive a PyTorch data-loader error, check this bug report:
                     # https://github.com/pytorch/pytorch/pull/9655
 

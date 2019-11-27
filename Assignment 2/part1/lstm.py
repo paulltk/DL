@@ -49,7 +49,7 @@ class LSTM(nn.Module):
         self.Bf = nn.Parameter(torch.ones(num_hidden).to(self.device))
         self.Bo = nn.Parameter(torch.zeros(num_hidden).to(self.device))
 
-        self.Wph = nn.Parameter(nn.init.kaimig_normal_(torch.empty((num_hidden, num_classes))).to(self.device))
+        self.Wph = nn.Parameter(nn.init.kaiming_normal_(torch.empty((num_hidden, num_classes))).to(self.device))
 
         self.Bp = nn.Parameter(torch.zeros(num_classes).to(self.device))
 

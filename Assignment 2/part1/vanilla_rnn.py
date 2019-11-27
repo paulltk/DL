@@ -39,11 +39,11 @@ class VanillaRNN(nn.Module):
         self.Bh = nn.Parameter(torch.zeros(num_hidden).to(device))
         self.Bp = nn.Parameter(torch.zeros(num_classes).to(device))
 
-        self.h = torch.zeros(num_hidden)
+        self.h = torch.zeros(num_hidden).to(device)
 
     def forward(self, x):
 
-        h = self.h.to(device)
+        h = self.h
         # self.all_h = []
 
         for i in range(self.sec_length):
