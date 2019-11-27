@@ -47,7 +47,7 @@ def train(config):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     def acc(predictions, targets):
-        accuracy = (predictions.argmax(dim=1) == targets).float().mean()
+        accuracy = (predictions.argmax(dim=1) == targets).float().mean().item()
         return accuracy
 
     all_accuracies = []
