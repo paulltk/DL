@@ -38,7 +38,7 @@ from lstm import LSTM
 def train(config):
 
     #set variables
-    T_options = list(range(24, 30, 1))
+    T_options = list(range(30, 36, 1))
     config.model_type = "RNN"
 
     assert config.model_type in ('RNN', 'LSTM')
