@@ -147,7 +147,7 @@ def train(config):
     print(all_losses)
     print(all_train_steps)
 
-    with open("lstm_{}_{}.txt".format(config.min_len, config.max_len), "w") as output:
+    with open("lstm_xavier_{}_{}.txt".format(config.min_len, config.max_len), "w") as output:
         output.write("accuracies \n")
         output.write(str(all_accuracies) + "\n")
         output.write("losses \n")
