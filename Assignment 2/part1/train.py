@@ -71,7 +71,7 @@ def train(config):
         #     if T > 20:
         #         config.learning_rate = 0.02
 
-        for i in range(1):
+        for i in range(3):
 
             print("Iteration", i, "with T:", T, "learning rate:", config.learning_rate)
 
@@ -150,7 +150,7 @@ def train(config):
     print(all_losses)
     print(all_train_steps)
 
-    with open("lstm.txt", "w") as output:
+    with open("lstm_extra.txt", "w") as output:
         output.write("accuracies \n")
         output.write(str(all_accuracies) + "\n")
         output.write("losses \n")
