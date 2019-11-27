@@ -147,7 +147,7 @@ def train(config):
     print(all_losses)
     print(all_train_steps)
 
-    with open("file.txt", "w") as output:
+    with open("lstm.txt", "w") as output:
         output.write("accuracies \n")
         output.write(str(all_accuracies) + "\n")
         output.write("losses \n")
