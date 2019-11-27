@@ -40,6 +40,7 @@ def train(config):
     #set variables
     T_options = list(range(20, 40, 1))
     config.model_type = "LSTM"
+    print("model:", config.model_type)
 
     assert config.model_type in ('RNN', 'LSTM')
 
