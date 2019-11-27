@@ -58,7 +58,6 @@ class LSTM(nn.Module):
 
     def forward(self, x):
 
-        # self.all_h = []
         h = self.h
         c = self.c
 
@@ -72,8 +71,6 @@ class LSTM(nn.Module):
 
             c = g * i + c * f
             h = (c * o).tanh()
-
-            # self.all_h.append(h.requires_grad_(True))
 
             p = h @ self.Wph + self.Bp
 

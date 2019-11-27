@@ -38,9 +38,10 @@ from lstm import LSTM
 def train(config):
 
     #set variables
-    T_options = list(range(20, 40, 1))
-    config.model_type = "LSTM"
+    T_options = list(range(config.min_len, config.max_len))
     print("model:", config.model_type)
+    print("min input length:", config.min_len)
+    print("max input length:", config.max_len)
 
     assert config.model_type in ('RNN', 'LSTM')
 
@@ -67,11 +68,7 @@ def train(config):
 
         config.input_length = T
 
-        # if config.model_type == "LSTM":
-        #     if T > 20:
-        #         config.learning_rate = 0.02
-
-        for i in range(3):
+        for i in range(4):
 
             print("Iteration", i, "with T:", T, "learning rate:", config.learning_rate)
 
@@ -150,7 +147,7 @@ def train(config):
     print(all_losses)
     print(all_train_steps)
 
-    with open("lstm_extra.txt", "w") as output:
+    with open("lstm_{}_{}.txt".format(config.min_len, config.max_len), "w") as output:
         output.write("accuracies \n")
         output.write(str(all_accuracies) + "\n")
         output.write("losses \n")
@@ -166,7 +163,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     # Model params
-    parser.add_argument('--model_type', type=str, default="RNN", help="Model type, should be 'RNN' or 'LSTM'")
+    parser.add_argument('--model_type', type=str, default="LSTM", help="Model type, should be 'RNN' or 'LSTM'")
     parser.add_argument('--input_length', type=int, default=10, help='Length of an input sequence')
     parser.add_argument('--input_dim', type=int, default=1, help='Dimensionality of input sequence')
     parser.add_argument('--num_classes', type=int, default=10, help='Dimensionality of output sequence')
@@ -176,6 +173,8 @@ if __name__ == "__main__":
     parser.add_argument('--train_steps', type=int, default=4000, help='Number of training steps')
     parser.add_argument('--max_norm', type=float, default=10.0)
     parser.add_argument('--device', type=str, default="cuda:0", help="Training device 'cpu' or 'cuda:0'")
+    parser.add_argument('--min_len', type=int, default=1, help='Length of an input sequence')
+    parser.add_argument('--max_len', type=int, default=20, help='Length of an input sequence')
 
     config = parser.parse_args()
 
