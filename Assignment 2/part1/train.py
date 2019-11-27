@@ -88,7 +88,8 @@ def train(config):
 
             # Setup the loss and optimizer
             criterion = torch.nn.CrossEntropyLoss()
-            optimizer = torch.optim.RMSprop(model.parameters(), lr=config.learning_rate)
+            # optimizer = torch.optim.RMSprop(model.parameters(), lr=config.learning_rate)
+            optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
 
             for step, (batch_inputs, batch_targets) in enumerate(data_loader):
 
