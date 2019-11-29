@@ -17,4 +17,4 @@ module load NCCL/2.4.7-CUDA-10.0.130
 module load cuDNN/7.4.2-CUDA-10.0.130
 export LD_LIBRARY_PATH=/hpc/eb/Debian9/cuDNN/7.4.2-CUDA-10.0.130/
 
-srun python3 train.py
+srun python3 train.py --temperature_int 0.5
