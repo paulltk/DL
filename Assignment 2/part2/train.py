@@ -77,7 +77,7 @@ def train(config):
         batch_inputs = batch_inputs.float().to(device)
         batch_targets = batch_targets.to(device)
 
-        out, _ = model.forward(batch_inputs, temperature=temperature)  # forward pass
+        out, _ = model.forward(batch_inputs)  # forward pass
 
         loss = criterion(out.permute(0, 2, 1), batch_targets)  # calculate the loss
         accuracy = acc(out, batch_targets)  # calculate the accuracy
