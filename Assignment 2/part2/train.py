@@ -127,16 +127,13 @@ def train(config):
 
                     # get the next letter
                     out = out.squeeze()
-                    print(out.size())
                     if temperature != False:
                         out *= temperature
                         out = torch.softmax(out, dim=0)
-                        print("A", out.size())
                         previous = torch.multinomial(out, 1)[0].item()
-                        print("previous:", previous)
+
                     else:
                         previous = out.argmax().item()
-                        print("previous:", previous)
 
                     letters.append(previous)
 
