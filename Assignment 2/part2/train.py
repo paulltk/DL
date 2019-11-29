@@ -60,8 +60,7 @@ def train(config):
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
 
     gen_lengths = [20, 30, 60, 100]
-    temperature = 0.5
-    print("temperature:", temperature)
+    print("temperature:", config.temperature_int)
 
     all_accuracies = []
     all_losses = []
@@ -146,7 +145,7 @@ def train(config):
             # https://github.com/pytorch/pytorch/pull/9655
             break
 
-    with open("acc_loss_T_{}.txt".format(temperature), "w") as output:
+    with open("acc_loss_T_{}.txt".format(config.temperature_int), "w") as output:
         output.write("accuracies \n")
         output.write(str(all_accuracies) + "\n")
         output.write("losses \n")
