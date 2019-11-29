@@ -127,12 +127,9 @@ def train(config):
 
                     # get the next letter
                     out = out.squeeze()
-                    print(out)
                     if temperature:
                         out *= temperature
-                        print(out)
                         out = torch.softmax(out, dim=0)
-                        print(out)
                         previous = torch.multinomial(out, 1)
                     else:
                         previous = torch.mul
@@ -190,8 +187,8 @@ if __name__ == "__main__":
 
     # Misc params
     parser.add_argument('--summary_path', type=str, default="./summaries/", help='Output path for summaries')
-    parser.add_argument('--print_every', type=int, default=500, help='How often to print training progress')
-    parser.add_argument('--sample_every', type=int, default=500, help='How often to sample from the model')
+    parser.add_argument('--print_every', type=int, default=50, help='How often to print training progress')
+    parser.add_argument('--sample_every', type=int, default=50, help='How often to sample from the model')
 
     config = parser.parse_args()
 
