@@ -131,6 +131,7 @@ def train(config):
                         out *= temperature
                         out = torch.softmax(out, dim=0)
                         previous = torch.multinomial(out, 1)
+                        print("previous:", previous)
                     else:
                         previous = out.argmax().item()
 
