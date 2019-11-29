@@ -126,13 +126,14 @@ def train(config):
                     out, cell = model.forward(input, cell)
 
                     # get the next letter
+                    out = out.squeeze()
                     if temperature:
                         out *= temperature
-                        out = torch.softmax(out, dim=2)
+                        out = torch.softmax(out, dim=0)
                         previous = torch.multinomial(out, 1)
                     else:
                         previous = torch.mul
-                    previous = out.argmax(dim=2).item()
+                    previous = out.argmax().item()
                     letters.append(previous)
 
                 # convert to sentence
