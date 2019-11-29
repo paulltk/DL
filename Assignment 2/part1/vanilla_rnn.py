@@ -44,13 +44,15 @@ class VanillaRNN(nn.Module):
     def forward(self, x):
 
         h = self.h
-        # self.all_h = []
+        self.all_h = []
 
         for i in range(self.sec_length):
             numbers = x[:, i].view(x.size(0), 1)
 
             h = (numbers @ self.Whx + h @ self.Whh + self.Bh).tanh().to(self.device)
-            # self.all_h.append(h.requires_grad_(True))
+
+            h.retain_grad()
+            self.all_h.append(h)
 
             p = (h @ self.Wph + self.Bp).to(self.device)
 

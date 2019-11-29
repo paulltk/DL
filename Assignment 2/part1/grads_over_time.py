@@ -39,99 +39,68 @@ from part1.lstm import LSTM
 ################################################################################
 
 def train(config):
-
-    #set variables
-    config.model_type = "LSTM"
-
     assert config.model_type in ('RNN', 'LSTM')
 
     # Initialize the device which to run the model on
-    device = torch.device(config.device)
-
-    def one_hot(x, input_dim):
-        one_hot_vec = (torch.arange(x.max() + 1) == x[..., None]).float()
-        return one_hot_vec
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     def acc(predictions, targets):
-        accuracy = 0
-        for prediction, target in zip(predictions, targets):
-            if prediction.argmax() == target:
-                accuracy += 1
-        accuracy /= predictions.shape[0]
+        accuracy = (predictions.argmax(dim=1) == targets).float().mean().item()
         return accuracy
 
-    # Initialize the dataset and data loader (note the +1)
+    # Initialize the dataset and data loader (note the +1
     dataset = PalindromeDataset(config.input_length + 1)
     data_loader = DataLoader(dataset, config.batch_size, num_workers=1)
 
-    # Initialize the model that we are going to use
-    if config.model_type == "RNN":
-        model = VanillaRNN(config.input_length, config.input_dim, config.num_hidden, config.num_classes)
-    elif config.model_type == "LSTM":
-        model = LSTM(config.input_length, config.input_dim, config.num_hidden, config.num_classes)
-
     # Setup the loss and optimizer
     criterion = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.RMSprop(model.parameters(), lr=config.learning_rate)
 
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
 
         # Only for time measurement of step through network
         t1 = time.time()
 
-        # Add more code here ...
-        if config.input_dim != 1:
-            batch_inputs = one_hot(batch_inputs, config.input_dim)
+        # Initialize the model that we are going to use
+        lstm = LSTM(config.input_length, config.input_dim, config.num_hidden, config.num_classes)
+        optimizer = torch.optim.RMSprop(lstm.parameters(), lr=config.learning_rate)
 
-        p = model.forward(batch_inputs)
+        lstm_out = lstm.forward(batch_inputs)
 
-        loss = criterion(p, batch_targets)
-        accuracy = acc(p, batch_targets)
-
+        loss = criterion(lstm_out, batch_targets)
         optimizer.zero_grad()
-
         loss.backward()
 
-        ############################################################################
-        # QUESTION: what happens here and why?
-        ############################################################################
-        # torch.nn.utils.clip_grad_norm(model.parameters(), max_norm=config.max_norm)
-        ############################################################################
+        rnn = VanillaRNN(config.input_length, config.input_dim, config.num_hidden, config.num_classes, device)
+        optimizer = torch.optim.RMSprop(rnn.parameters(), lr=config.learning_rate)
 
-        gradient_magnitudes = []
-        inputs = list(range(1, config.input_dim +1))
+        rnn_out = rnn.forward(batch_inputs)
 
-        for hi in model.all_h:
-            print(hi)
+        loss = criterion(rnn_out, batch_targets)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
 
+        lstm_norms = []
+        for h in lstm.all_h:
+            lstm_norms.append(h.grad.norm().item())
+
+        rnn_norms = []
+        for h in rnn.all_h:
+            rnn_norms.append(h.grad.norm().item())
+
+        sequence = list(range(1, config.input_length + 1))
+        plt.figure(figsize=(15, 6))
+        plt.plot(sequence, rnn_norms, label="rnn")
+        plt.plot(sequence, lstm_norms, label="lstm")
+        plt.legend()
+        plt.xlabel("sequence value")
+        plt.ylabel("gradient norm")
+
+        plt.show()
 
         break
 
     print('Done training.')
-    #
-    # plt.figure(figsize=(15, 8))
-    #
-    # mean_acc = list(np.array(all_accuracies).mean(axis=1))
-    # maxstd_acc = list(np.array(all_accuracies).mean(axis=1) + np.array(all_accuracies).std(axis=1))
-    # minstd_acc = list(np.array(all_accuracies).mean(axis=1) - np.array(all_accuracies).std(axis=1))
-    #
-    # mean_loss = list(np.array(all_losses).mean(axis=1))
-    # maxstd_loss = list(np.array(all_losses).mean(axis=1) + np.array(all_losses).std(axis=1))
-    # minstd_loss = list(np.array(all_losses).mean(axis=1) - np.array(all_losses).std(axis=1))
-    #
-    # plt.plot(T_options, all_accuracies, "o", color="black")
-    # plt.plot(T_options, all_losses, "o", color="black")
-    #
-    # plt.plot(T_options, mean_acc, label="accuracy mean")
-    # plt.fill_between(T_options, maxstd_acc, minstd_acc, alpha = 0.2, label="accuracy std")
-    # plt.plot(T_options, mean_loss, label="loss mean")
-    # plt.fill_between(T_options, maxstd_loss, minstd_loss, alpha = 0.2, label="loss std")
-    #
-    # plt.title('Accuracy and loss over different T\'s with %i seeds for every T' %(i+1))
-    # plt.legend()
-    # plt.xlabel("input_length")
-    # plt.show()
-    # plt.savefig("jaja.png")
 
 if __name__ == "__main__":
 

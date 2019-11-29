@@ -60,6 +60,7 @@ class LSTM(nn.Module):
 
         h = self.h
         c = self.c
+        self.all_h = []
 
         for i in range(self.sec_length):
             numbers = x[:, i].view(x.size(0), 1)
@@ -71,6 +72,9 @@ class LSTM(nn.Module):
 
             c = g * i + c * f
             h = (c * o).tanh()
+
+            h.retain_grad()
+            self.all_h.append(h)
 
             p = h @ self.Wph + self.Bp
 

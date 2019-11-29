@@ -1,6 +1,0 @@
-accuracies 
-[[1.0]]
-losses 
-[[1.1690967082977295]]
-train steps 
-[[300]]

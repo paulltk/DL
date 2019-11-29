@@ -68,7 +68,7 @@ def train(config):
     all_train_steps = []
 
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
-        batch_inputs = (torch.arange(dataset._vocab_size) == batch_inputs[...,None]) # create one-hot
+        batch_inputs = (torch.arange(dataset._vocab_size) == batch_inputs[..., None])  # create one-hot
 
         # Only for time measurement of step through network
         t1 = time.time()
@@ -77,16 +77,16 @@ def train(config):
         batch_inputs = batch_inputs.float().to(device)
         batch_targets = batch_targets.to(device)
 
-        out, _ = model.forward(batch_inputs, temperature=temperature) # forward pass
+        out, _ = model.forward(batch_inputs, temperature=temperature)  # forward pass
 
-        loss = criterion(out.permute(0, 2, 1), batch_targets) # calculate the loss
-        accuracy = acc(out, batch_targets) # calculate the accuracy
+        loss = criterion(out.permute(0, 2, 1), batch_targets)  # calculate the loss
+        accuracy = acc(out, batch_targets)  # calculate the accuracy
 
         optimizer.zero_grad() # throw away previous grads
 
         loss.backward() # calculate new gradients
 
-        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=config.max_norm) # make sure the gradients do not explode
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=config.max_norm)  # make sure the gradients do not explode
 
         optimizer.step() # update the weights
 
@@ -127,6 +127,12 @@ def train(config):
 
                     # get the next letter
                     out = out.squeeze()
+                    if temperature:
+                        out *= temperature
+                        out = torch.softmax(out)
+                        previous = torch.multinomial(probabilities, 1)
+                    else:
+                        previous = torch.mul
                     previous = out.argmax().item()
                     letters.append(previous)
 
@@ -160,8 +166,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     # Model params
-    parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
-    # parser.add_argument('--txt_file', type=str, default="assets/book_EN_grimms_fairy_tails.txt", help="Path to a .txt file to train on")
+    # parser.add_argument('--txt_file', type=str, default="assets/book_EN_democracy_in_the_US.txt", help="Path to a .txt file to train on")
+    parser.add_argument('--txt_file', type=str, default="assets/book_EN_grimms_fairy_tails.txt", help="Path to a .txt file to train on")
     # parser.add_argument('--txt_file', type=str, default="assets/book_NL_darwin_reis_om_de_wereld.txt", help="Path to a .txt file to train on")
     parser.add_argument('--seq_length', type=int, default=30, help='Length of an input sequence')
     parser.add_argument('--lstm_num_hidden', type=int, default=128, help='Number of hidden units in the LSTM')
