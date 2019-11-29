@@ -132,8 +132,8 @@ def train(config):
                         out = torch.softmax(out, dim=0)
                         previous = torch.multinomial(out, 1)
                     else:
-                        previous = torch.mul
-                    previous = out.argmax().item()
+                        previous = out.argmax().item()
+
                     letters.append(previous)
 
                 # convert to sentence
