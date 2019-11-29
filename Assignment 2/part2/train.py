@@ -126,7 +126,7 @@ def train(config):
 
                     # get the next letter
                     out = out.squeeze()
-                    if temperature:
+                    if config.temperature is True:
                         out *= config.temperature_int
                         out = torch.softmax(out, dim=0)
                         previous = torch.multinomial(out, 1)[0].item()
