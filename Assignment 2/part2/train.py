@@ -59,7 +59,7 @@ def train(config):
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
 
-    gen_lengths = [20, 30, 60, 100]
+    gen_lengths = [20, 30, 100, 200]
     print("temperature:", config.temperature_int)
 
     all_accuracies = []
