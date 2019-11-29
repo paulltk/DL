@@ -190,7 +190,7 @@ if __name__ == "__main__":
     parser.add_argument('--summary_path', type=str, default="./summaries/", help='Output path for summaries')
     parser.add_argument('--print_every', type=int, default=1000, help='How often to print training progress')
     parser.add_argument('--sample_every', type=int, default=1000, help='How often to sample from the model')
-    parser.add_argument('--temperature_int', type=int, default=1, help='Temperature integer')
+    parser.add_argument('--temperature_int', type=float, default=1, help='Temperature integer')
     parser.add_argument('--temperature', type=bool, default=True, help='Use temperature?')
 
     config = parser.parse_args()
