@@ -2,37 +2,50 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a75ab1d-1650-4a15-8ee6-1064de464622" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignment_2.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/Accuracies/lstm_1_20.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/Accuracies/lstm_20_30.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/Accuracies/lstm_30_35.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/Accuracies/lstm_35_40.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/Accuracies/lstm_xavier_1_20.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/Accuracies/lstm_xavier_20_30.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/Accuracies/lstm_xavier_30_35.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/Accuracies/lstm_xavier_35_40.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/batch.job" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/figures/Figure_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/gradient magnidute.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/grads_over_time.py" beforeDir="false" afterPath="$PROJECT_DIR$/part1/grads_over_time.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/lstm_kaiming_1_39.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/lstm_xavier_1_39.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/rnn_1_35.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/rnn_1_39.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/slurm-4056194.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/slurm-4056291.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part1/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/part1/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part2/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part2/acc_loss_T_0.5.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part2/acc_loss_T_False.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part2/batch.job" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part2/t_05.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part2/t_2.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/part2/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/part2/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/Report_tenKaate.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/assignment_1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/.idea/code.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/cifar10_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/convnet_pytorch.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/custom_batchnorm.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/gradient_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/mlp_numpy.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/mlp_pytorch.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/modules.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/train_convnet_pytorch.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/train_mlp_numpy.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/train_mlp_pytorch.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/code/unittests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/environment.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 1/tenKaate_assignment_1.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Assignment 2.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part1/create_graphs.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part1/dataset.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part1/grads_over_time.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part1/lstm.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part1/train.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part1/vanilla_rnn.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part2/assets/book_EN_democracy_in_the_US.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part2/assets/book_EN_grimms_fairy_tails.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part2/assets/book_NL_darwin_reis_om_de_wereld.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part2/assets/book_NL_tolstoy_anna_karenina.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part2/assets/book_TeX_calculus_made_easy.tex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part2/create_graphs.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part2/dataset.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part2/model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/part2/train.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report_tenKaate.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenKaate_assignment_2.zip" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +58,9 @@
   </component>
   <component name="ProjectId" id="1UIel7cKJHvhdjfcoJLfD40dvAf" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../assignment_3" />
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
