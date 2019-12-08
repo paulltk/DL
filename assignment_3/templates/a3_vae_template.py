@@ -7,11 +7,16 @@ from torchvision.utils import make_grid
 
 from datasets.bmnist import bmnist
 
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 class Encoder(nn.Module):
 
     def __init__(self, hidden_dim=500, z_dim=20):
-        super().__init__()
+        super(Encoder, self).__init__()
+
+        self.h = nn.Linear(784, hidden_dim).to(device)
+        self.z_mean = nn.Linear(hidden_dim, z_dim).to(device)
+        self.z_std = nn.Linear(hidden_dim, z_dim).to(device)
 
     def forward(self, input):
         """
@@ -20,8 +25,9 @@ class Encoder(nn.Module):
         Returns mean and std with shape [batch_size, z_dim]. Make sure
         that any constraints are enforced.
         """
-        mean, std = None, None
-        raise NotImplementedError()
+        hidden = self.h(input)
+        mean = self.z_mean(hidden)
+        std = self.z_std(hidden)
 
         return mean, std
 
@@ -29,7 +35,7 @@ class Encoder(nn.Module):
 class Decoder(nn.Module):
 
     def __init__(self, hidden_dim=500, z_dim=20):
-        super().__init__()
+        super(Decoder, self).__init__()
 
     def forward(self, input):
         """
