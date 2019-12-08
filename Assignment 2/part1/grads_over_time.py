@@ -25,6 +25,9 @@ import numpy as np
 from matplotlib import pyplot as plt
 import seaborn as sns
 
+import sys
+sys.path.append(".")
+sys.path.append("..")
 
 import torch
 from torch.utils.data import DataLoader
@@ -54,31 +57,31 @@ def train(config):
 
     # Setup the loss and optimizer
     criterion = torch.nn.CrossEntropyLoss()
+    lstm = LSTM(config.input_length, config.input_dim, config.num_hidden, config.num_classes)
+    rnn = VanillaRNN(config.input_length, config.input_dim, config.num_hidden, config.num_classes, device)
+
+    optimizer_lstm = torch.optim.RMSprop(lstm.parameters(), lr=config.learning_rate)
+    optimizer_rnn = torch.optim.RMSprop(rnn.parameters(), lr=config.learning_rate)
 
     for step, (batch_inputs, batch_targets) in enumerate(data_loader):
 
         # Only for time measurement of step through network
-        t1 = time.time()
-
+        print("step",step)
         # Initialize the model that we are going to use
-        lstm = LSTM(config.input_length, config.input_dim, config.num_hidden, config.num_classes)
-        optimizer = torch.optim.RMSprop(lstm.parameters(), lr=config.learning_rate)
-
         lstm_out = lstm.forward(batch_inputs)
 
-        loss = criterion(lstm_out, batch_targets)
-        optimizer.zero_grad()
-        loss.backward()
+        optimizer_lstm.zero_grad()
+        loss_lstm = criterion(lstm_out, batch_targets)
+        loss_lstm.backward()
+        optimizer_lstm.step()
 
-        rnn = VanillaRNN(config.input_length, config.input_dim, config.num_hidden, config.num_classes, device)
-        optimizer = torch.optim.RMSprop(rnn.parameters(), lr=config.learning_rate)
 
         rnn_out = rnn.forward(batch_inputs)
 
-        loss = criterion(rnn_out, batch_targets)
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+        optimizer_rnn.zero_grad()
+        loss_rnn = criterion(rnn_out, batch_targets)
+        loss_rnn.backward()
+        optimizer_rnn.step()
 
         lstm_norms = []
         for h in lstm.all_h:
@@ -109,7 +112,7 @@ if __name__ == "__main__":
 
     # Model params
     parser.add_argument('--model_type', type=str, default="RNN", help="Model type, should be 'RNN' or 'LSTM'")
-    parser.add_argument('--input_length', type=int, default=10, help='Length of an input sequence')
+    parser.add_argument('--input_length', type=int, default=100, help='Length of an input sequence')
     parser.add_argument('--input_dim', type=int, default=1, help='Dimensionality of input sequence')
     parser.add_argument('--num_classes', type=int, default=10, help='Dimensionality of output sequence')
     parser.add_argument('--num_hidden', type=int, default=128, help='Number of hidden units in the model')

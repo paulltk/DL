@@ -30,8 +30,12 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 
-from dataset import TextDataset
-from model import TextGenerationModel
+import sys
+sys.path.append(".")
+sys.path.append("..")
+
+from part2.dataset import TextDataset
+from part2.model import TextGenerationModel
 
 ################################################################################
 
