@@ -1,0 +1,9 @@
+
+assignment_3/templates/data/raw/binarized_mnist_test.amat
+assignment_3/templates/data/processed/test.pt
+assignment_3/templates/data/processed/train.pt
+assignment_3/templates/data/processed/val.pt
+assignment_3/templates/data/raw/binarized_mnist_train.amat
+assignment_3/templates/data/raw/binarized_mnist_valid.amat
+assignment_3/templates/datasets/__pycache__/bmnist.cpython-37.pyc
+assignment_3/templates/datasets/__pycache__/__init__.cpython-37.pyc
