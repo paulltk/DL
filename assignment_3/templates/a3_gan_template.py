@@ -82,7 +82,7 @@ def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
 
             imgs.cuda()
 
-            image = generator
+
 
             # Train Generator
             # ---------------
