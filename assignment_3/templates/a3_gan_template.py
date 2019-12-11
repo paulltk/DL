@@ -78,9 +78,6 @@ class Discriminator(nn.Module):
         return self.model(img)
 
 def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
-    real_labels = torch.ones(args.batch_size, 1).to(device)
-    gen_labels = torch.zeros(args.batch_size, 1).to(device)
-
     for epoch in range(args.n_epochs):
         print("Epoch", epoch)
         for i, (imgs, _) in enumerate(dataloader):
@@ -98,11 +95,13 @@ def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
             gen_imgs = generator(z).detach()
 
             # predict and calculate gradients for generated images
+            gen_labels = torch.zeros(imgs.shape[0], 1).to(device)
             predictions = discriminator(gen_imgs)
             loss = loss_function(predictions, gen_labels)
             loss.backward()
 
             # predict and calculate gradients for real images
+            real_labels = torch.ones(imgs.shape[0], 1).to(device)
             predictions = discriminator(imgs)
             loss = loss_function(predictions, real_labels)
             loss.backward()
