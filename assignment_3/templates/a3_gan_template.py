@@ -13,18 +13,19 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 class Generator(nn.Module):
     def __init__(self):
         super(Generator, self).__init__()
+
         self.model = nn.Sequential(nn.Linear(args.latent_dim, 128),
                               nn.LeakyReLU(0.2),
                               nn.Linear(128, 256),
-                              nn.BatchNorm2d(256),
+                              nn.BatchNorm1d(256),
                               nn.LeakyReLU(0.2),
                               nn.Linear(256, 512),
-                              nn.BatchNorm2d(512),
+                              nn.BatchNorm1d(512),
                               nn.LeakyReLU(0.2),
                               nn.Linear(512,1024),
-                              nn.BatchNorm2d(1024),
+                              nn.BatchNorm1d(1024),
                               nn.LeakyReLU(0.2),
-                              nn.Linear(1024,768),
+                              nn.Linear(1024,784),
                               nn.Sigmoid())
 
         self.model.to(device)
@@ -77,30 +78,59 @@ class Discriminator(nn.Module):
         return self.model(img)
 
 def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
+    real_labels = torch.ones(args.batch_size, 1).to(device)
+    gen_labels = torch.zeros(args.batch_size, 1).to(device)
+
     for epoch in range(args.n_epochs):
+        print("Epoch", epoch)
+        print(len(dataloader))
         for i, (imgs, _) in enumerate(dataloader):
+            print("Batch", i)
+            imgs = imgs.view(-1, 784)
 
-            imgs.cuda()
-
-
-
-            # Train Generator
-            # ---------------
+            # Setting loss to binary cross-entropy
+            loss_function = nn.BCELoss()
 
             # Train Discriminator
             # -------------------
             optimizer_D.zero_grad()
 
+            # generate images
+            z = torch.randn(size=(imgs.shape[0], args.latent_dim)).to(device)
+            gen_imgs = generator(z).detach()
+
+            # predict and calculate gradients for generated images
+            predictions = discriminator(gen_imgs)
+            loss = loss_function(predictions, gen_labels)
+            loss.backward()
+
+            # predict and calculate gradients for real images
+            predictions = discriminator(imgs)
+            loss = loss_function(predictions, real_labels)
+            loss.backward()
+
+            optimizer_D.step()
+
+            # Train Generator
+            # ---------------
+            optimizer_G.zero_grad()
+
+            # generate images
+            z = torch.randn(size=(imgs.shape[0], args.latent_dim)).to(device)
+            gen_imgs = generator(z)
+
+            # predict and calculate gradients for generated images
+            predictions = discriminator(gen_imgs)
+            loss = loss_function(predictions, gen_labels)
+            loss.backward()
+
+            optimizer_G.step()
+
             # Save Images
             # -----------
             batches_done = epoch * len(dataloader) + i
             if batches_done % args.save_interval == 0:
-                # You can use the function save_image(Tensor (shape Bx1x28x28),
-                # filename, number of rows, normalize) to save the generated
-                # images, e.g.:
-                # save_image(gen_imgs[:25],
-                #            'images/{}.png'.format(batches_done),
-                #            nrow=5, normalize=True)
+                save_image(gen_imgs[:25].view(25, 1, 28, 28), 'images/{}.png'.format(batches_done), nrow=5, normalize=True)
                 pass
 
 
@@ -113,17 +143,19 @@ def main():
         datasets.MNIST('./data/mnist', train=True, download=True,
                        transform=transforms.Compose([
                            transforms.ToTensor(),
-                           transforms.Normalize((0.5, 0.5, 0.5),
-                                                (0.5, 0.5, 0.5))])),
+                           transforms.Normalize((0.5,), (0.5,))])),
         batch_size=args.batch_size, shuffle=True)
 
     # Initialize models and optimizers
+    print("Creating models")
     generator = Generator()
     discriminator = Discriminator()
+    print("Creating optimizers")
     optimizer_G = torch.optim.Adam(generator.parameters(), lr=args.lr)
     optimizer_D = torch.optim.Adam(discriminator.parameters(), lr=args.lr)
 
     # Start training
+    print("starting training")
     train(dataloader, discriminator, generator, optimizer_G, optimizer_D)
 
     # You can save your generator here to re-use it to generate images for your
