@@ -2,8 +2,9 @@ import argparse
 
 import torch
 import torch.nn as nn
+import torch.distributions
 import matplotlib.pyplot as plt
-from torchvision.utils import make_grid
+from torchvision.utils import save_image
 
 from datasets.bmnist import bmnist
 
@@ -12,7 +13,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 class Encoder(nn.Module):
 
     def __init__(self, hidden_dim=500, z_dim=20):
-        super(Encoder, self).__init__()
+        super().__init__()
 
         self.h = nn.Linear(784, hidden_dim).to(device)
         self.z_mean = nn.Linear(hidden_dim, z_dim).to(device)
@@ -25,9 +26,15 @@ class Encoder(nn.Module):
         Returns mean and std with shape [batch_size, z_dim]. Make sure
         that any constraints are enforced.
         """
-        hidden = self.h(input)
+        # print("input size:", input.size())
+        hidden = self.h(input).relu()
+        # print("encode hidden:", hidden.size())
+
         mean = self.z_mean(hidden)
+        # print("mean hidden:", mean.size())
+
         std = self.z_std(hidden)
+        # print("std hidden:", std.size())
 
         return mean, std
 
@@ -35,7 +42,12 @@ class Encoder(nn.Module):
 class Decoder(nn.Module):
 
     def __init__(self, hidden_dim=500, z_dim=20):
-        super(Decoder, self).__init__()
+        super().__init__()
+
+        self.h = nn.Linear(z_dim, hidden_dim).to(device)
+
+        self.output = nn.Linear(hidden_dim, 784).to(device)
+
 
     def forward(self, input):
         """
@@ -43,8 +55,11 @@ class Decoder(nn.Module):
 
         Returns mean with shape [batch_size, 784].
         """
-        mean = None
-        raise NotImplementedError()
+        # print("decode input:", input.size())
+        hidden = self.h(input).relu()
+        # print("decode hidden:", hidden.size())
+        mean = self.output(hidden).sigmoid()
+        # print("decode mean:", mean.size())
 
         return mean
 
@@ -63,9 +78,20 @@ class VAE(nn.Module):
         Given input, perform an encoding and decoding step and return the
         negative average elbo for the given batch.
         """
-        average_negative_elbo = None
-        raise NotImplementedError()
-        return average_negative_elbo
+
+        mean, std = self.encoder(input)
+
+        std = std.exp().sqrt()
+
+        z = mean + std * torch.randn(size=(input.size()[0], self.z_dim)).to(device)
+
+        out = self.decoder(z)
+
+        reconstruction = nn.functional.binary_cross_entropy(out, input, reduction='sum')
+
+        regularization = - 0.5 * torch.sum(1 + std - mean**2 - std.exp())
+
+        return (reconstruction + regularization) / input.shape[0]
 
     def sample(self, n_samples):
         """
@@ -73,8 +99,9 @@ class VAE(nn.Module):
         (from bernoulli) and the means for these bernoullis (as these are
         used to plot the data manifold).
         """
-        sampled_ims, im_means = None, None
-        raise NotImplementedError()
+
+        im_means = self.decoder(torch.randn(size=(n_samples, self.z_dim)).to(device))
+        sampled_ims = im_means.bernoulli()
 
         return sampled_ims, im_means
 
@@ -86,10 +113,22 @@ def epoch_iter(model, data, optimizer):
 
     Returns the average elbo for the complete epoch.
     """
-    average_epoch_elbo = None
-    raise NotImplementedError()
 
-    return average_epoch_elbo
+    average_epoch_elbo = 0
+
+    for batch in data:
+        batch = batch.view(-1, 784)
+
+        loss = model(batch)
+
+        if model.training:
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+        average_epoch_elbo += loss
+
+    return average_epoch_elbo / batch.shape[0] / len(data)
 
 
 def run_epoch(model, data, optimizer):
@@ -125,12 +164,20 @@ def main():
 
     train_curve, val_curve = [], []
     for epoch in range(ARGS.epochs):
+
+        if epoch == 0:
+            samples = model.sample(9)[0]
+            save_image(samples.view(9, 1, 28, 28), "output_vae_epoch_{}.png".format(epoch), nrow=3)
+
         elbos = run_epoch(model, data, optimizer)
         train_elbo, val_elbo = elbos
         train_curve.append(train_elbo)
         val_curve.append(val_elbo)
         print(f"[Epoch {epoch}] train elbo: {train_elbo} val_elbo: {val_elbo}")
 
+        if epoch == ARGS.epochs/2 or epoch == ARGS.epochs - 1:
+            samples = model.sample(9)[0]
+            save_image(samples.view(9, 1, 28, 28), "output_vae_epoch_{}.png".format(epoch), nrow=3)
         # --------------------------------------------------------------------
         #  Add functionality to plot samples from model during training.
         #  You can use the make_grid functioanlity that is already imported.
@@ -147,7 +194,7 @@ def main():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--epochs', default=40, type=int,
+    parser.add_argument('--epochs', default=4, type=int,
                         help='max number of epochs')
     parser.add_argument('--zdim', default=20, type=int,
                         help='dimensionality of latent space')
