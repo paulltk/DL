@@ -22,11 +22,11 @@ class Generator(nn.Module):
                               nn.Linear(256, 512),
                               nn.BatchNorm1d(512),
                               nn.LeakyReLU(0.2),
-                              nn.Linear(512,1024),
+                              nn.Linear(512, 1024),
                               nn.BatchNorm1d(1024),
                               nn.LeakyReLU(0.2),
-                              nn.Linear(1024,784),
-                              nn.Sigmoid())
+                              nn.Linear(1024, 784),
+                              nn.Tanh())
 
         self.model.to(device)
 
