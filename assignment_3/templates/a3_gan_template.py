@@ -83,10 +83,8 @@ def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
 
     for epoch in range(args.n_epochs):
         print("Epoch", epoch)
-        print(len(dataloader))
         for i, (imgs, _) in enumerate(dataloader):
-            print("Batch", i)
-            imgs = imgs.view(-1, 784)
+            imgs = imgs.view(-1, 784).to(device)
 
             # Setting loss to binary cross-entropy
             loss_function = nn.BCELoss()
