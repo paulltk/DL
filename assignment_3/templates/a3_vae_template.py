@@ -178,11 +178,7 @@ def main():
         if epoch == ARGS.epochs/2 or epoch == ARGS.epochs - 1:
             samples = model.sample(9)[0]
             save_image(samples.view(9, 1, 28, 28), "output_vae_epoch_{}.png".format(epoch), nrow=3)
-        # --------------------------------------------------------------------
-        #  Add functionality to plot samples from model during training.
-        #  You can use the make_grid functioanlity that is already imported.
-        # --------------------------------------------------------------------
-
+        
     # --------------------------------------------------------------------
     #  Add functionality to plot plot the learned data manifold after
     #  if required (i.e., if zdim == 2). You can use the make_grid
@@ -194,7 +190,7 @@ def main():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--epochs', default=4, type=int,
+    parser.add_argument('--epochs', default=40, type=int,
                         help='max number of epochs')
     parser.add_argument('--zdim', default=20, type=int,
                         help='dimensionality of latent space')

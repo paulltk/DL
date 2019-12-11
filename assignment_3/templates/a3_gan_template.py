@@ -3,14 +3,31 @@ import os
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torchvision.transforms as transforms
 from torchvision.utils import save_image
 from torchvision import datasets
 
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 class Generator(nn.Module):
     def __init__(self):
         super(Generator, self).__init__()
+        self.model = nn.Sequential(nn.Linear(args.latent_dim, 128),
+                              nn.LeakyReLU(0.2),
+                              nn.Linear(128, 256),
+                              nn.BatchNorm2d(256),
+                              nn.LeakyReLU(0.2),
+                              nn.Linear(256, 512),
+                              nn.BatchNorm2d(512),
+                              nn.LeakyReLU(0.2),
+                              nn.Linear(512,1024),
+                              nn.BatchNorm2d(1024),
+                              nn.LeakyReLU(0.2),
+                              nn.Linear(1024,768),
+                              nn.Sigmoid())
+
+        self.model.to(device)
 
         # Construct generator. You are free to experiment with your model,
         # but the following is a good start:
@@ -29,13 +46,22 @@ class Generator(nn.Module):
         #   Output non-linearity
 
     def forward(self, z):
-        # Generate images from z
-        pass
+
+        return self.model(z)
 
 
 class Discriminator(nn.Module):
     def __init__(self):
         super(Discriminator, self).__init__()
+
+        self.model = nn.Sequential(nn.Linear(784, 512),
+                              nn.LeakyReLU(0.2),
+                              nn.Linear(512, 256),
+                              nn.LeakyReLU(0.2),
+                              nn.Linear(256, 1),
+                              nn.Sigmoid())
+
+        self.model.to(device)
 
         # Construct distriminator. You are free to experiment with your model,
         # but the following is a good start:
@@ -47,15 +73,16 @@ class Discriminator(nn.Module):
         #   Output non-linearity
 
     def forward(self, img):
-        # return discriminator score for img
-        pass
 
+        return self.model(img)
 
 def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
     for epoch in range(args.n_epochs):
         for i, (imgs, _) in enumerate(dataloader):
 
             imgs.cuda()
+
+            image = generator
 
             # Train Generator
             # ---------------
