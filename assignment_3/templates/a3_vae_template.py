@@ -117,7 +117,7 @@ def epoch_iter(model, data, optimizer):
     average_epoch_elbo = 0
 
     for batch in data:
-        batch = batch.view(-1, 784)
+        batch = batch.view(-1, 784).to(device)
 
         loss = model(batch)
 
@@ -178,7 +178,7 @@ def main():
         if epoch == ARGS.epochs/2 or epoch == ARGS.epochs - 1:
             samples = model.sample(9)[0]
             save_image(samples.view(9, 1, 28, 28), "output_vae_epoch_{}.png".format(epoch), nrow=3)
-        
+
     # --------------------------------------------------------------------
     #  Add functionality to plot plot the learned data manifold after
     #  if required (i.e., if zdim == 2). You can use the make_grid
