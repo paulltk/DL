@@ -30,22 +30,6 @@ class Generator(nn.Module):
 
         self.model.to(device)
 
-        # Construct generator. You are free to experiment with your model,
-        # but the following is a good start:
-        #   Linear args.latent_dim -> 128
-        #   LeakyReLU(0.2)
-        #   Linear 128 -> 256
-        #   Bnorm
-        #   LeakyReLU(0.2)
-        #   Linear 256 -> 512
-        #   Bnorm
-        #   LeakyReLU(0.2)
-        #   Linear 512 -> 1024
-        #   Bnorm
-        #   LeakyReLU(0.2)
-        #   Linear 1024 -> 768
-        #   Output non-linearity
-
     def forward(self, z):
 
         return self.model(z)
@@ -64,27 +48,19 @@ class Discriminator(nn.Module):
 
         self.model.to(device)
 
-        # Construct distriminator. You are free to experiment with your model,
-        # but the following is a good start:
-        #   Linear 784 -> 512
-        #   LeakyReLU(0.2)
-        #   Linear 512 -> 256
-        #   LeakyReLU(0.2)
-        #   Linear 256 -> 1
-        #   Output non-linearity
-
     def forward(self, img):
 
         return self.model(img)
 
 def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
+    # Setting loss to binary cross-entropy
+    loss_function = nn.BCELoss().to(device)
+
     for epoch in range(args.n_epochs):
         print("Epoch", epoch)
         for i, (imgs, _) in enumerate(dataloader):
-            imgs = imgs.view(-1, 784).to(device)
 
-            # Setting loss to binary cross-entropy
-            loss_function = nn.BCELoss()
+            imgs = imgs.view(-1, 784).to(device)
 
             # Train Discriminator
             # -------------------
@@ -94,17 +70,16 @@ def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
             z = torch.randn(size=(imgs.shape[0], args.latent_dim)).to(device)
             gen_imgs = generator(z).detach()
 
-            # predict and calculate gradients for generated images
-            gen_labels = torch.zeros(imgs.shape[0], 1).to(device)
+            # predict for generated images
+            gen_labels = torch.zeros((imgs.shape[0], 1)).to(device)
             predictions = discriminator(gen_imgs)
-            loss = loss_function(predictions, gen_labels)
-            loss.backward()
+            d_loss = loss_function(predictions, gen_labels)
 
-            # predict and calculate gradients for real images
-            real_labels = torch.ones(imgs.shape[0], 1).to(device)
+            # predict for real images and calculate gradients
+            real_labels = torch.ones((imgs.shape[0], 1)).to(device)
             predictions = discriminator(imgs)
-            loss = loss_function(predictions, real_labels)
-            loss.backward()
+            d_loss += loss_function(predictions, real_labels)
+            d_loss.backward()
 
             optimizer_D.step()
 
@@ -118,16 +93,22 @@ def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
 
             # predict and calculate gradients for generated images
             predictions = discriminator(gen_imgs)
-            loss = loss_function(predictions, gen_labels)
-            loss.backward()
+            g_loss = loss_function(predictions, real_labels)
+            g_loss.backward()
 
             optimizer_G.step()
+
+            if i % 100 == 0:
+                print('batch ', i)
+                print("d_loss:", d_loss)
+                print("g_loss:", g_loss)
 
             # Save Images
             # -----------
             batches_done = epoch * len(dataloader) + i
             if batches_done % args.save_interval == 0:
-                save_image(gen_imgs[:25].view(25, 1, 28, 28), 'images/{}.png'.format(batches_done), nrow=5, normalize=True)
+                gen_imgs = gen_imgs.view(gen_imgs.size()[0], 1, 28, 28)
+                save_image(gen_imgs[:25], 'images/{}.png'.format(batches_done), nrow=5, normalize=True)
                 pass
 
 
@@ -170,7 +151,7 @@ if __name__ == "__main__":
                         help='learning rate')
     parser.add_argument('--latent_dim', type=int, default=100,
                         help='dimensionality of the latent space')
-    parser.add_argument('--save_interval', type=int, default=500,
+    parser.add_argument('--save_interval', type=int, default=100,
                         help='save every SAVE_INTERVAL iterations')
     args = parser.parse_args()
 
