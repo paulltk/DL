@@ -64,28 +64,28 @@ def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
 
             # Train Discriminator
             # -------------------
-            optimizer_D.zero_grad()
 
             # generate images
             z = torch.randn(size=(imgs.shape[0], args.latent_dim)).to(device)
             gen_imgs = generator(z).detach()
 
             # predict for generated images
-            gen_labels = torch.zeros((imgs.shape[0], 1)).to(device)
+            gen_labels = torch.zeros(imgs.shape[0], 1).to(device)
             predictions = discriminator(gen_imgs)
-            d_loss = loss_function(predictions, gen_labels)
+            loss = loss_function(predictions, gen_labels)
 
             # predict for real images and calculate gradients
-            real_labels = torch.ones((imgs.shape[0], 1)).to(device)
+            real_labels = torch.ones(imgs.shape[0], 1).to(device)
             predictions = discriminator(imgs)
-            d_loss += loss_function(predictions, real_labels)
-            d_loss.backward()
+            loss += loss_function(predictions, real_labels)
 
+            # calculate gradients and update weigths
+            optimizer_D.zero_grad()
+            loss.backward()
             optimizer_D.step()
 
             # Train Generator
             # ---------------
-            optimizer_G.zero_grad()
 
             # generate images
             z = torch.randn(size=(imgs.shape[0], args.latent_dim)).to(device)
@@ -93,15 +93,12 @@ def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
 
             # predict and calculate gradients for generated images
             predictions = discriminator(gen_imgs)
-            g_loss = loss_function(predictions, real_labels)
-            g_loss.backward()
+            loss = loss_function(predictions, real_labels)
 
+            # calculate gradients and update weigths
+            optimizer_G.zero_grad()
+            loss.backward()
             optimizer_G.step()
-
-            if i % 100 == 0:
-                print('batch ', i)
-                print("d_loss:", d_loss)
-                print("g_loss:", g_loss)
 
             # Save Images
             # -----------
@@ -151,7 +148,7 @@ if __name__ == "__main__":
                         help='learning rate')
     parser.add_argument('--latent_dim', type=int, default=100,
                         help='dimensionality of the latent space')
-    parser.add_argument('--save_interval', type=int, default=100,
+    parser.add_argument('--save_interval', type=int, default=1000,
                         help='save every SAVE_INTERVAL iterations')
     args = parser.parse_args()
 
