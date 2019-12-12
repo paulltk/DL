@@ -111,7 +111,7 @@ def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
 
 def main():
     # Create output image directory
-    os.makedirs('images', exist_ok=True)
+    os.makedirs('images2', exist_ok=True)
 
     # load data
     dataloader = torch.utils.data.DataLoader(
