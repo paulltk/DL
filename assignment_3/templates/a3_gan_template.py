@@ -108,6 +108,20 @@ def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
                 save_image(gen_imgs[:25], 'images/{}.png'.format(batches_done), nrow=5, normalize=True)
                 pass
 
+            if epoch == args.n_epochs - 1 and i % 10 == 0:
+                z1 = torch.randn(1, args.latent_dim).to(device)
+                z2 = torch.randn(1, args.latent_dim).to(device)
+                diff = (z1 - z2) / 8
+                z = z1
+
+                for inter in range(8):
+                    new_z = z1 - diff * (inter + 1)
+                    z = torch.cat((z, new_z))
+
+                inter_imgs = generator(z)
+                inter_imgs = inter_imgs.view(inter_imgs.size()[0], 1, 28, 28)
+                save_image(inter_imgs[:9], 'images/interpolated{}.png'.format(batches_done), nrow=9, normalize=True)
+
 
 def main():
     # Create output image directory
@@ -140,7 +154,7 @@ def main():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--n_epochs', type=int, default=200,
+    parser.add_argument('--n_epochs', type=int, default=1,
                         help='number of epochs')
     parser.add_argument('--batch_size', type=int, default=64,
                         help='batch size')
