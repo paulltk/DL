@@ -7,23 +7,28 @@ import torch.nn.functional as F
 import numpy as np
 from datasets.mnist import mnist
 import os
+import scipy.stats
+
 from torchvision.utils import make_grid
 
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def log_prior(x):
     """
     Compute the elementwise log probability of a standard Gaussian, i.e.
     N(x | mu=0, sigma=1).
     """
-    raise NotImplementedError
-    return logp
+    gaussian = scipy.stats.norm(0, 1)
 
+    logp = torch.tensor(gaussian.pdf(x)).log().to(device)
+
+    return logp
 
 def sample_prior(size):
     """
     Sample from a standard Gaussian.
     """
-    raise NotImplementedError
+    sample = torch.randn(size)
 
     if torch.cuda.is_available():
         sample = sample.cuda()

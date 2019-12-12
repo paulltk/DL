@@ -79,7 +79,7 @@ def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
             predictions = discriminator(imgs)
             loss += loss_function(predictions, real_labels)
 
-            # calculate gradients and update weigths
+            # calculate gradients and update weights
             optimizer_D.zero_grad()
             loss.backward()
             optimizer_D.step()
@@ -95,7 +95,7 @@ def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
             predictions = discriminator(gen_imgs)
             loss = loss_function(predictions, real_labels)
 
-            # calculate gradients and update weigths
+            # calculate gradients and update weights
             optimizer_G.zero_grad()
             loss.backward()
             optimizer_G.step()
@@ -111,7 +111,7 @@ def train(dataloader, discriminator, generator, optimizer_G, optimizer_D):
 
 def main():
     # Create output image directory
-    os.makedirs('images2', exist_ok=True)
+    os.makedirs('images', exist_ok=True)
 
     # load data
     dataloader = torch.utils.data.DataLoader(
